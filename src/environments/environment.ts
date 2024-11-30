@@ -2,8 +2,12 @@
 // `ng build --prod` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
 
+import { url } from "inspector";
+
 export const environment = {
-  production: false
+  production: false,
+  url_ms_cinema : "http://127.0.0.1:3333",
+  url_ms_security : "http://127.0.0.1:5000"
 };
 
 /*
