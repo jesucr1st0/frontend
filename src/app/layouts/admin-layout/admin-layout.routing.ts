@@ -31,5 +31,13 @@ export const AdminLayoutRoutes: Routes = [
                 loadChildren: () => import('src/app/pages/seats/seats.module').then(m => m.SeatsModule)
             }
         ]
+    },
+    { path: 'departamentos',
+        children: [
+        {
+          path: '',  
+          loadChildren: () => import('src/app/pages/departamentos/departamentos.module').then(m => m.DepartamentosModule)
+        }
+      ]
     }
 ];
