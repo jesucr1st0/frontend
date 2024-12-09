@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Theater } from 'src/app/models/theater.model';
-import { TheaterService } from 'src/app/services/theater.service';
+import { Producto } from 'src/app/models/producto';
+import { ProductoService } from 'src/app/services/producto.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -9,10 +9,11 @@ import Swal from 'sweetalert2';
   styleUrls: ['./list.component.css']
 })
 export class ListComponent implements OnInit {
-  theaters:Theater[]
 
-  constructor(private service: TheaterService) { 
-    this.theaters = []
+  productos:Producto[]
+
+  constructor(private service: ProductoService) { 
+    this.productos = []
   }
 
   ngOnInit(): void {
@@ -21,8 +22,8 @@ export class ListComponent implements OnInit {
 
   list() {
     this.service.list().subscribe(data => {
-      this.theaters = data;
-      console.log(JSON.stringify(this.theaters));
+      this.productos = data;
+      console.log(JSON.stringify(this.productos));
     })
   }
 

@@ -129,5 +129,69 @@ export const AdminLayoutRoutes: Routes = [
             loadChildren: () => import('src/app/pages/vehiculo-conductor/vehiculo-conductor.module').then(m => m.VehiculoConductorModule)
         }
     ]
+    },
+    {path: 'productos',
+        children: [
+        {
+            path: '',
+            loadChildren: () => import('src/app/pages/productos/productos.module').then(m => m.ProductosModule)
+        }
+    ]
+    },
+    {path: 'lotes',
+        children: [
+        {
+            path: '',
+            loadChildren: () => import('src/app/pages/lotes/lotes.module').then(m => m.LotesModule)
+        }
+    ]
+    },
+    {path: 'direcciones',
+        children: [
+        {
+            path: '',
+            loadChildren: () => import('src/app/pages/direcciones/direcciones.module').then(m => m.DireccionesModule)
+        }
+    ]
+    },
+    {path: 'ordenes',
+        children: [
+        {
+            path: '',
+            loadChildren: () => import('src/app/pages/ordenes/ordenes.module').then(m => m.OrdenesModule)
+        }
+    ]
+    },
+    {path: 'operaciones',
+        children: [
+        {
+            path: '',
+            loadChildren: () => import('src/app/pages/operaciones/operaciones.module').then(m => m.OperacionesModule)
+        }
+    ]
+    },
+    {path: 'clientes',
+        children: [
+        {
+            path: '',
+            loadChildren: () => import('src/app/pages/clientes/clientes.module').then(m => m.ClientesModule)
+        }
+    ]
+    },
+    {path: 'personas-naturales',
+        children: [
+        {
+            path: '',
+            loadChildren: () => import('src/app/pages/personas-naturales/personas-naturales.module').then(m => m.PersonasNaturalesModule)
+        }
+    ]
+    },
+    {path: 'administradores',
+        children: [
+        {
+            path: '',
+            loadChildren: () => import('src/app/pages/administradores/administradores.module').then(m => m.AdministradoresModule)
+        }
+    ]
     }
 ];

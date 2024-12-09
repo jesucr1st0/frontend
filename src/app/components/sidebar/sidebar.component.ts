@@ -28,8 +28,15 @@ export const ROUTES: RouteInfo[] = [
     { path: '/servicios', title: 'Servicios', icon: 'ni-diamond text-purple', class: '', type: 1 },
     { path: '/vehiculo-conductor', title: 'Vehículo-Conductor', icon: 'ni-delivery-fast text-orange', class: '', type: 1 },
     { path: '/dueno-vehiculo', title: 'Dueño-Vehículo', icon: 'ni-badge text-green', class: '', type: 1 },
-
-
+    { path: '/administradores/list', title: 'Administradores', icon: 'ni-badge text-green', class: '', type: 1 },
+    { path: '/clientes/list', title: 'Clientes', icon: 'ni-badge text-green', class: '', type: 1 },
+    { path: '/direcciones/list', title: 'Direcciones', icon: 'ni-badge text-green', class: '', type: 1 },
+    { path: '/lotes/list', title: 'Lotes', icon: 'ni-badge text-green', class: '', type: 1 },
+    { path: '/operaciones/list', title: 'Operaciones', icon: 'ni-badge text-green', class: '', type: 1 },
+    { path: '/ordenes/list', title: 'Ordenes', icon: 'ni-badge text-green', class: '', type: 1 },
+    { path: '/personas-naturales/list', title: 'Personas Naturales', icon: 'ni-badge text-green', class: '', type: 1 },
+    { path: '/productos/list', title: 'Productos', icon: 'ni-badge text-green', class: '', type: 1 },
+    { path: '/theaters/list', title: 'Teatros', icon: 'ni-badge text-green', class: '', type: 1 }
 
 
 ];

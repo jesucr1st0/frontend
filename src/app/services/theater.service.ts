@@ -15,7 +15,7 @@ export class TheaterService {
   list(): Observable<Theater[]> {
     return this.http.get<Theater[]>(`${environment.url_ms_cinema}/theaters`);
   }
-  delete(id: string) {
+  delete(id: number) {
     return this.http.delete<Theater>(`${environment.url_ms_cinema}/theaters/${id}`,
     );
   }
