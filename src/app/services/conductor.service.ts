@@ -15,7 +15,7 @@ export class ConductorService {
   list(): Observable<Conductor[]> {
     return this.http.get<Conductor[]>(`${environment.url_ms_negocio}/conductores`);
   }
-  delete(id: string) {
+  delete(id: number) {
     return this.http.delete<Conductor>(`${environment.url_ms_negocio}/conductores/${id}`,
     );
   }
