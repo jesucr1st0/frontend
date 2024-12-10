@@ -47,8 +47,11 @@ export class ManageComponent implements OnInit {
     this.theFormGroup=this.theFormBuilder.group({
       // primer elemento del vector, valor por defecto
       // lista, serán las reglas
-      //capacity:[0,[Validators.required,Validators.min(1),Validators.max(100)]],
-      //location:['',[Validators.required,Validators.minLength(2)]],
+      contrato_id: [0, [Validators.required, Validators.minLength(1)]],
+      vehiculo_id: [0, [Validators.required, Validators.minLength(1)]],
+      fecha_asignacion: [new(Date), [Validators.required, Validators.minLength(1)]],
+      origen: ['', [Validators.required, Validators.minLength(1)]],
+      destino: ['', [Validators.required, Validators.minLength(1)]],
     })
   }
   get getTheFormGroup(){
@@ -58,6 +61,13 @@ export class ManageComponent implements OnInit {
   getruta(id:number){
     this.rutaService.view(id).subscribe(data => {
       this.ruta = data;
+      this.theFormGroup.patchValue({
+        contrato_id: data.contrato_id,
+        vehiculo_id: data.vehiculo_id,
+        fecha_asignacion: data.fecha_asignacion,
+        origen: data.origen,
+        destino: data.destino,
+      });
     })
   }
   create(){
@@ -70,6 +80,7 @@ export class ManageComponent implements OnInit {
     console.log(JSON.stringify(newRuta));
     this.rutaService.create(newRuta).subscribe(data => {
       Swal.fire('Success', 'ruta created successfully', 'success');
+      this.router.navigate(['/rutas/list']);
 
     })
   }

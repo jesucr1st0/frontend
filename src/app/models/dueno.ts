@@ -10,7 +10,7 @@ export class Dueno {
     correo: string
     direccion: string
     fecha_nacimiento: Date
-    usuario_id?: string;
+    usuario_id?: number;
     usuario?: User;
     conductor_id?: number
     conductor?: Conductor

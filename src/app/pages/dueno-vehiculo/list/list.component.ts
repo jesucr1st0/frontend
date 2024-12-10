@@ -55,10 +55,10 @@ export class ListComponent implements OnInit {
     })
   }
   create(){
-    this.router.navigate(["duenoVehiculos/create"])
+    this.router.navigate(["dueno-vehiculo/create"])
   }
   update(id:number){
-    this.router.navigate([`duenoVehiculos/update/${id}`])
+    this.router.navigate([`dueno-vehiculo/update/${id}`])
   }
 
 }

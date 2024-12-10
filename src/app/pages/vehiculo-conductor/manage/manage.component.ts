@@ -47,8 +47,8 @@ export class ManageComponent implements OnInit {
     this.theFormGroup=this.theFormBuilder.group({
       // primer elemento del vector, valor por defecto
       // lista, serán las reglas
-      //capacity:[0,[Validators.required,Validators.min(1),Validators.max(100)]],
-      //location:['',[Validators.required,Validators.minLength(2)]],
+      conductor_id: [0, [Validators.required, Validators.minLength(1)]],
+      vehiculo_id: [0, [Validators.required, Validators.minLength(1)]],
     })
   }
   get getTheFormGroup(){
@@ -58,6 +58,10 @@ export class ManageComponent implements OnInit {
   getvehiculoconductor(id:number){
     this.vehiculoconductorService.view(id).subscribe(data => {
       this.vehiculoconductor = data;
+      this.theFormGroup.setValue({
+        conductor_id: data.conductor_id,
+        vehiculo_id: data.vehiculo_id,
+      })
     })
   }
   create(){
@@ -70,6 +74,7 @@ export class ManageComponent implements OnInit {
     console.log(JSON.stringify(newVehiculoConductor));
     this.vehiculoconductorService.create(newVehiculoConductor).subscribe(data => {
       Swal.fire('Success', 'vehiculoconductor created successfully', 'success');
+      this.router.navigate(['/vehiculo-conductor/list']);
 
     })
   }
@@ -85,7 +90,7 @@ export class ManageComponent implements OnInit {
   
     // Verificar si el ID del vehículo está disponible
     if (!this.vehiculoconductor.id) {
-      Swal.fire('Error', 'No se ha encontrado el vehículo para actualizar', 'error');
+      Swal.fire('Error', 'No se ha encontrado el conductor vehículo para actualizar', 'error');
       return;
     }
   
@@ -97,12 +102,12 @@ export class ManageComponent implements OnInit {
     // Llamada al servicio para actualizar el vehículo
     this.vehiculoconductorService.update(updatedVehiculoconductor).subscribe({
       next: (data) => {
-        Swal.fire('Éxito', 'Vehículo actualizado exitosamente', 'success');
+        Swal.fire('Éxito', 'Vehículo conductor actualizado exitosamente', 'success');
         this.router.navigate(['/vehiculo-conductor/list']);  // Redirige a la lista de vehículos
       },
       error: (err) => {
-        Swal.fire('Error', 'No se pudo actualizar el vehículo', 'error');
-        console.error('Error al actualizar vehículo:', err);
+        Swal.fire('Error', 'No se pudo actualizar el vehículo conductor', 'error');
+        console.error('Error al actualizar conductor vehículo:', err);
       }
     });
   }

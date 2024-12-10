@@ -22,7 +22,7 @@ export class ManageComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private theFormBuilder: FormBuilder,
   ) { 
-    this.conductor = {id: 0, nombre: '', apellido: '', telefono: '', correo: '', direccion: '', fecha_nacimiento: new(Date), dueno_id: 0};
+    this.conductor = {id: 0, nombre: '', apellido: '', telefono: '', correo: '', direccion: '', fecha_nacimiento: new(Date), usuario_id: 0};
     this.mode = 0;
     this.trySend = false;
   }
@@ -47,8 +47,13 @@ export class ManageComponent implements OnInit {
     this.theFormGroup=this.theFormBuilder.group({
       // primer elemento del vector, valor por defecto
       // lista, serán las reglas
-      //capacity:[0,[Validators.required,Validators.min(1),Validators.max(100)]],
-      //location:['',[Validators.required,Validators.minLength(2)]],
+      nombre: ['', [Validators.required, Validators.minLength(2)]],
+      apellido: ['', [Validators.required, Validators.minLength(2)]],
+      telefono: ['', [Validators.required, Validators.minLength(2)]],
+      correo: ['', [Validators.required, Validators.minLength(2)]],
+      direccion: ['', [Validators.required, Validators.minLength(2)]],
+      fecha_nacimiento: ['', [Validators.required, Validators.minLength(2)]],
+      usuario_id: [0, [Validators.required, Validators.minLength(1)]]
     })
   }
   get getTheFormGroup(){
@@ -58,20 +63,34 @@ export class ManageComponent implements OnInit {
   getConductor(id:number){
     this.conductorService.view(id).subscribe(data => {
       this.conductor = data;
+      this.theFormGroup.patchValue({
+        nombre: data.nombre,
+        apellido: data.apellido,
+        telefono: data.telefono,
+        correo: data.correo,
+        direccion: data.direccion,
+        fecha_nacimiento: data.fecha_nacimiento,
+        usuario_id: data.usuario_id
+      });
     })
   }
-  create(){
-    if(this.theFormGroup.invalid){
+  create() {
+    if (this.theFormGroup.invalid) {
       this.trySend = true;
       Swal.fire('Formulario invalido', 'ingrese correctamente los datos', 'error');
       return;
     }
     const newConductor = this.theFormGroup.value;
-    console.log(JSON.stringify(newConductor));
-    this.conductorService.create(newConductor).subscribe(data => {
-      Swal.fire('Success', 'Conductor created successfully', 'success');
-
-    })
+    console.log(JSON.stringify(newConductor));  // Verifica los datos antes de enviarlos
+    this.conductorService.create(newConductor).subscribe( data => {
+        Swal.fire('Success', 'Conductor created successfully', 'success');
+        this.router.navigate(['/conductores/list']);  // Redirige a la lista de Conductores
+      },
+      error => {
+        Swal.fire('Error', 'Hubo un error al crear el conductor', 'error');
+        console.error('Error al crear conductor:', error);
+      }
+    );
   }
   update() {
     if (this.theFormGroup.invalid) {

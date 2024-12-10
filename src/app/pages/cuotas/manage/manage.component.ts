@@ -47,8 +47,15 @@ export class ManageComponent implements OnInit {
     this.theFormGroup=this.theFormBuilder.group({
       // primer elemento del vector, valor por defecto
       // lista, serán las reglas
-      //capacity:[0,[Validators.required,Validators.min(1),Validators.max(100)]],
-      //location:['',[Validators.required,Validators.minLength(2)]],
+      contrato_id: [0, [Validators.required, Validators.minLength(1)]],
+      monto: [0, [Validators.required, Validators.minLength(1)]],
+      fechaPago: [new(Date), [Validators.required, Validators.minLength(1)]],
+      fechaVencimiento: [new(Date), [Validators.required, Validators.minLength(1)]],
+      estado: ['', [Validators.required, Validators.minLength(1)]],
+      descripcion: ['', [Validators.required, Validators.minLength(1)]],
+      tipoPago: ['', [Validators.required, Validators.minLength(1)]],
+      numeroCuota: [0, [Validators.required, Validators.minLength(1)]],
+      factura_id: [0, [Validators.required, Validators.minLength(1)]]
     })
   }
   get getTheFormGroup(){
@@ -58,6 +65,17 @@ export class ManageComponent implements OnInit {
   getcuota(id:number){
     this.cuotaService.view(id).subscribe(data => {
       this.cuota = data;
+      this.theFormGroup.patchValue({
+        contrato_id: data.contrato_id,
+        monto: data.monto,
+        fechaPago: data.fechaPago,
+        fechaVencimiento: data.fechaVencimiento,
+        estado: data.estado,
+        descripcion: data.descripcion,
+        tipoPago: data.tipoPago,
+        numeroCuota: data.numeroCuota,
+        factura_id: data.factura_id
+      });
     })
   }
   create(){
@@ -70,6 +88,7 @@ export class ManageComponent implements OnInit {
     console.log(JSON.stringify(newCuota));
     this.cuotaService.create(newCuota).subscribe(data => {
       Swal.fire('Success', 'cuota created successfully', 'success');
+      this.router.navigate(['/cuotas/list']);
 
     })
   }
@@ -85,7 +104,7 @@ export class ManageComponent implements OnInit {
   
     // Verificar si el ID del vehículo está disponible
     if (!this.cuota.id) {
-      Swal.fire('Error', 'No se ha encontrado el vehículo para actualizar', 'error');
+      Swal.fire('Error', 'No se ha encontrado la cuota para actualizar', 'error');
       return;
     }
   
@@ -97,12 +116,12 @@ export class ManageComponent implements OnInit {
     // Llamada al servicio para actualizar el vehículo
     this.cuotaService.update(updatedCuota).subscribe({
       next: (data) => {
-        Swal.fire('Éxito', 'Vehículo actualizado exitosamente', 'success');
+        Swal.fire('Éxito', 'cuota actualizado exitosamente', 'success');
         this.router.navigate(['/vehiculos/list']);  // Redirige a la lista de vehículos
       },
       error: (err) => {
-        Swal.fire('Error', 'No se pudo actualizar el vehículo', 'error');
-        console.error('Error al actualizar vehículo:', err);
+        Swal.fire('Error', 'No se pudo actualizar la cuota', 'error');
+        console.error('Error al actualizar cuota:', err);
       }
     });
   }

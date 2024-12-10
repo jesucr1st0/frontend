@@ -14,6 +14,7 @@
               <thead class="thead-light">
                 <tr>
                   <th scope="col-1">ID</th>
+                  <th scope="col-3">Usuario ID</th>
                   <th scope="col-3">Nombre</th>
                   <th scope="col-4">Apellido</th>
                   <th scope="col-4">Telefono</th>
@@ -25,6 +26,7 @@
               <tbody>
                 <tr *ngFor="let actual of duenos">
                   <td>{{ actual.id }}</td>
+                  <td>{{ actual.usuario_id }}</td>
                   <td>{{ actual.nombre}}</td>
                   <td>{{ actual.apellido }}</td>
                   <td>{{ actual.telefono }}</td>

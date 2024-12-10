@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Conductor } from 'src/app/models/conductor';
 import { Dueno } from 'src/app/models/dueno';
 import { DuenoService } from 'src/app/services/dueno.service';
 import Swal from 'sweetalert2';
@@ -22,7 +23,7 @@ export class ManageComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private theFormBuilder: FormBuilder,
   ) { 
-    this.dueno = {id: 0, nombre: '', apellido: '', telefono: '', correo: '', direccion: '', fecha_nacimiento: new(Date)};
+    this.dueno = {id: 0, nombre: '', apellido: '', telefono: '', correo: '', direccion: '', fecha_nacimiento: new(Date), usuario_id: 0, conductor_id: 0};
     this.mode = 0;
     this.trySend = false;
   }
@@ -47,8 +48,14 @@ export class ManageComponent implements OnInit {
     this.theFormGroup=this.theFormBuilder.group({
       // primer elemento del vector, valor por defecto
       // lista, serán las reglas
-      //capacity:[0,[Validators.required,Validators.min(1),Validators.max(100)]],
-      //location:['',[Validators.required,Validators.minLength(2)]],
+      nombre: ['', [Validators.required, Validators.minLength(2)]],
+      apellido: ['', [Validators.required, Validators.minLength(2)]],
+      telefono: ['', [Validators.required, Validators.minLength(2)]],
+      correo: ['', [Validators.required, Validators.minLength(2)]],
+      direccion: ['', [Validators.required, Validators.minLength(2)]],
+      fecha_nacimiento: ['', [Validators.required, Validators.minLength(2)]],
+      usuario_id: [0, [Validators.required, Validators.minLength(1)]],
+      conductor_id: [0, [Validators.required, Validators.minLength(1)]]
     })
   }
   get getTheFormGroup(){
@@ -58,6 +65,16 @@ export class ManageComponent implements OnInit {
   getdueno(id:number){
     this.duenoService.view(id).subscribe(data => {
       this.dueno = data;
+      this.theFormGroup.patchValue({
+        nombre: data.nombre,
+        apellido: data.apellido,
+        telefono: data.telefono,
+        correo: data.correo,
+        direccion: data.direccion,
+        fecha_nacimiento: data.fecha_nacimiento,
+        usuario_id: data.usuario_id,
+        conductor_id: data.conductor_id
+      });
     })
   }
   create(){
@@ -69,7 +86,8 @@ export class ManageComponent implements OnInit {
     const newDueno = this.theFormGroup.value;
     console.log(JSON.stringify(newDueno));
     this.duenoService.create(newDueno).subscribe(data => {
-      Swal.fire('Success', 'dueno created successfully', 'success');
+      Swal.fire('Success', 'dueño created successfully', 'success');
+      this.router.navigate(['/duenos/list']);
 
     })
   }
@@ -85,7 +103,7 @@ export class ManageComponent implements OnInit {
   
     // Verificar si el ID del vehículo está disponible
     if (!this.dueno.id) {
-      Swal.fire('Error', 'No se ha encontrado el vehículo para actualizar', 'error');
+      Swal.fire('Error', 'No se ha encontrado el Dueño para actualizar', 'error');
       return;
     }
   
@@ -97,12 +115,12 @@ export class ManageComponent implements OnInit {
     // Llamada al servicio para actualizar el vehículo
     this.duenoService.update(updateddueno).subscribe({
       next: (data) => {
-        Swal.fire('Éxito', 'Vehículo actualizado exitosamente', 'success');
+        Swal.fire('Éxito', 'Dueño actualizado exitosamente', 'success');
         this.router.navigate(['/duenos/list']);  // Redirige a la lista de vehículos
       },
       error: (err) => {
-        Swal.fire('Error', 'No se pudo actualizar el vehículo', 'error');
-        console.error('Error al actualizar vehículo:', err);
+        Swal.fire('Error', 'No se pudo actualizar el Dueño', 'error');
+        console.error('Error al actualizar Dueño:', err);
       }
     });
   }

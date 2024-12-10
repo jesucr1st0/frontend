@@ -47,8 +47,15 @@ export class ManageComponent implements OnInit {
     this.theFormGroup=this.theFormBuilder.group({
       // primer elemento del vector, valor por defecto
       // lista, serán las reglas
-      //capacity:[0,[Validators.required,Validators.min(1),Validators.max(100)]],
-      //location:['',[Validators.required,Validators.minLength(2)]],
+      cliente_id: [0, [Validators.required, Validators.minLength(1)]],
+      fecha_inicio: [new(Date), [Validators.required, Validators.minLength(1)]],
+      fecha_fin: [new(Date), [Validators.required, Validators.minLength(1)]],
+      tipo_contrato: ['', [Validators.required, Validators.minLength(1)]],
+      monto: [0, [Validators.required, Validators.minLength(1)]],
+      estado: ['', [Validators.required, Validators.minLength(1)]],
+      descripcion: ['', [Validators.required, Validators.minLength(1)]],
+      terminos_y_condiciones: ['', [Validators.required, Validators.minLength(1)]],
+
     })
   }
   get getTheFormGroup(){
@@ -58,6 +65,16 @@ export class ManageComponent implements OnInit {
   getcontrato(id:number){
     this.contratoService.view(id).subscribe(data => {
       this.contrato = data;
+      this.theFormGroup=this.theFormBuilder.group({
+        cliente_id: [data.cliente_id, [Validators.required, Validators.minLength(1)]],
+        fecha_inicio: [data.fecha_inicio, [Validators.required, Validators.minLength(1)]],
+        fecha_fin: [data.fecha_fin, [Validators.required, Validators.minLength(1)]],
+        tipo_contrato: [data.tipo_contrato, [Validators.required, Validators.minLength(1)]],
+        monto: [data.monto, [Validators.required, Validators.minLength(1)]],
+        estado: [data.estado, [Validators.required, Validators.minLength(1)]],
+        descripcion: [data.descripcion, [Validators.required, Validators.minLength(1)]],
+        terminos_y_condiciones: [data.terminos_y_condiciones, [Validators.required, Validators.minLength(1)]],
+      })
     })
   }
   create(){

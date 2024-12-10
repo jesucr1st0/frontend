@@ -10,9 +10,7 @@ export class Conductor {
   correo: string;
   direccion: string;
   fecha_nacimiento: Date;
-  dueno_id?: number;
-  dueno?: Dueno;
-  usuario_id?: string;
+  usuario_id?: number;
   usuario?: User;
   vehiculosConductores?: VehiculoConductor[];
   gastos?: Gasto[];
