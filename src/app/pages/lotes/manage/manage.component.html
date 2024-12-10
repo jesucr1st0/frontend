@@ -1,1 +1,70 @@
-<p>manage works!</p>
+<div class="header bg-gradient-danger pb-8 pt-5 pt-md-8">
+   
+</div>
+<!-- Page content -->
+<div class="container-fluid mt--7">
+    <!-- Table -->
+    <div class="row">
+        <div class="col">
+            <div class="card shadow">
+                <div class="card-header border-0">
+                    <h3 class="mb-0">Crear</h3>
+                </div>
+                <form class="form" [formGroup]="theFormGroup">
+                 <div class="card-body">
+                    <div class="row">
+                        <div class="col-4">
+                            <label>Id:</label>
+                        </div>
+                        <div class="col-8">
+                            <!--<input type="text" class="form-control" disabled [(ngModel)]="theater.id">-->
+                            <p>{{lote.id}}</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-4">
+                            <label>Peso total:</label>
+                        </div>
+                        <div class="col-8">
+                            <input type="text" class="form-control" [(ngModel)]="lote.peso_total" formControlName="peso_total">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-4">
+                            <label>Cantidad:</label>
+                        </div>
+                        <div class="col-8">
+                            <input type="text" class="form-control" [(ngModel)]="lote.cantidad" formControlName="cantidad">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-4">
+                            <label>Estado:</label>
+                        </div>
+                        <div class="col-8">
+                            <input type="text" class="form-control" [(ngModel)]="lote.estado" formControlName="estado">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-4">
+                            <label>ID de ruta:</label>
+                        </div>
+                        <div class="col-8">
+                            <input type="text" class="form-control" [(ngModel)]="lote.ruta_id" formControlName="ruta_id">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-4">
+                        </div>
+                        <div class="col-8">
+                            <button  class="btn btn-success btn-block" (click)="create()">Crear</button>
+                        </div>
+                    </div>
+                 </div>
+            </form>
+                
+            </div>
+        </div>
+    </div>
+</div>
+

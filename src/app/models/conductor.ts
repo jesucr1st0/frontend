@@ -1,4 +1,5 @@
 import { Dueno } from './dueno';
+import { User } from './user';
 export class Conductor {
   id?: number;
   nombre: string;
@@ -9,4 +10,6 @@ export class Conductor {
   fecha_nacimiento: Date;
   dueno_id?: number;
   dueno?: Dueno;
+  usuario_id?: string;
+  usuario?: User;
 }

@@ -1,11 +1,10 @@
 import { Cliente } from "./cliente";
-import { Empresa } from "./empresa";
+import { User } from "./user";
 
 export class PersonaNatural {
     id?: number;
-    usuario_id?: number;
+    usuario_id?: string;
+    usuario?: User;
     cliente_id?: number;
     cliente?: Cliente;
-    empresa_id?: number;
-    empresa?: Empresa;
 }

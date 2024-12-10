@@ -36,7 +36,7 @@ export const ROUTES: RouteInfo[] = [
     { path: '/ordenes/list', title: 'Ordenes', icon: 'ni-badge text-green', class: '', type: 1 },
     { path: '/personas-naturales/list', title: 'Personas Naturales', icon: 'ni-badge text-green', class: '', type: 1 },
     { path: '/productos/list', title: 'Productos', icon: 'ni-badge text-green', class: '', type: 1 },
-    { path: '/theaters/list', title: 'Teatros', icon: 'ni-badge text-green', class: '', type: 2 }
+    { path: '/facturas/list', title: 'Facturas', icon: 'ni-badge text-green', class: '', type: 1 }
 
 
 ];

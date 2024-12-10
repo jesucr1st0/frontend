@@ -25,9 +25,9 @@ export class OrdenService {
     return this.http.post<Orden>(`${environment.url_ms_negocio}/ordenes`, Orden);
   }
 
-  /*update(Orden: Orden):Observable<Orden> {
+  update(Orden: Orden):Observable<Orden> {
     return this.http.put<Orden>(`${environment.url_ms_negocio}/ordenes/${Orden.id}`, Orden);
-  }*/
+  }
 
   view(id: number): Observable<Orden> {
     return this.http.get<Orden>(`${environment.url_ms_negocio}/ordenes/${id}`);

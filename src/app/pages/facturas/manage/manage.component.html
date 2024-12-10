@@ -1,1 +1,150 @@
-<p>manage works!</p>
+<div class="header bg-gradient-danger pb-8 pt-5 pt-md-8">
+   
+</div>
+<!-- Page content -->
+<div class="container-fluid mt--7">
+    <!-- Table -->
+    <div class="row">
+        <div class="col">
+            <div class="card shadow">
+                <div class="card-header border-0">
+                    <h3 class="mb-0">Crear</h3>
+                </div>
+                <form class="form" [formGroup]="theFormGroup">
+                 <div class="card-body">
+                    <div class="row">
+                        <div class="col-4">
+                            <label>Id:</label>
+                        </div>
+                        <div class="col-8">
+                            <!--<input type="text" class="form-control" disabled [(ngModel)]="theater.id">-->
+                            <p>{{factura.id}}</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-4">
+                            <label>Número de tarjeta:</label>
+                        </div>
+                        <div class="col-8">
+                            <input type="text" class="form-control" [(ngModel)]="factura.card_number" formControlName="card_number">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-4">
+                            <label>Año de expiración:</label>
+                        </div>
+                        <div class="col-8">
+                            <input type="text" class="form-control" [(ngModel)]="factura.exp_year" formControlName="exp_year">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-4">
+                            <label>Mes de expiración:</label>
+                        </div>
+                        <div class="col-8">
+                            <input type="text" class="form-control" [(ngModel)]="factura.exp_month" formControlName="exp_month">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-4">
+                            <label>CVC:</label>
+                        </div>
+                        <div class="col-8">
+                            <input type="text" class="form-control" [(ngModel)]="factura.cvc" formControlName="cvc">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-4">
+                            <label>Nombre:</label>
+                        </div>
+                        <div class="col-8">
+                            <input type="text" class="form-control" [(ngModel)]="factura.name" formControlName="name">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-4">
+                            <label>Apellido:</label>
+                        </div>
+                        <div class="col-8">
+                            <input type="text" class="form-control" [(ngModel)]="factura.last_name" formControlName="last_name">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-4">
+                            <label>Correo electrónico:</label>
+                        </div>
+                        <div class="col-8">
+                            <input type="text" class="form-control" [(ngModel)]="factura.email" formControlName="email">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-4">
+                            <label>Teléfono:</label>
+                        </div>
+                        <div class="col-8">
+                            <input type="text" class="form-control" [(ngModel)]="factura.phone" formControlName="phone">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-4">
+                            <label>Número de documento:</label>
+                        </div>
+                        <div class="col-8">
+                            <input type="text" class="form-control" [(ngModel)]="factura.doc_number" formControlName="doc_number">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-4">
+                            <label>Ciudad:</label>
+                        </div>
+                        <div class="col-8">
+                            <input type="text" class="form-control" [(ngModel)]="factura.city" formControlName="city">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-4">
+                            <label>Dirección:</label>
+                        </div>
+                        <div class="col-8">
+                            <input type="text" class="form-control" [(ngModel)]="factura.address" formControlName="address">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-4">
+                            <label>Número de celular:</label>
+                        </div>
+                        <div class="col-8">
+                            <input type="text" class="form-control" [(ngModel)]="factura.cell_phone" formControlName="cell_phone">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-4">
+                            <label>Número de factura:</label>
+                        </div>
+                        <div class="col-8">
+                            <input type="text" class="form-control" [(ngModel)]="factura.id" formControlName="bill">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-4">
+                            <label>Monto:</label>
+                        </div>
+                        <div class="col-8">
+                            <input type="text" class="form-control" [(ngModel)]="factura.value" formControlName="value">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-4">
+                        </div>
+                        <div class="col-8">
+                            <button  class="btn btn-success btn-block" (click)="create()">Crear</button>
+                        </div>
+                    </div>
+                 </div>
+            </form>
+                
+            </div>
+        </div>
+    </div>
+</div>
+

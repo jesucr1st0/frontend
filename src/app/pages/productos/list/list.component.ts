@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Producto } from 'src/app/models/producto';
 import { ProductoService } from 'src/app/services/producto.service';
 import Swal from 'sweetalert2';
@@ -12,7 +13,7 @@ export class ListComponent implements OnInit {
 
   productos:Producto[]
 
-  constructor(private service: ProductoService) { 
+  constructor(private service: ProductoService, private router: Router) { 
     this.productos = []
   }
 
@@ -51,6 +52,14 @@ export class ListComponent implements OnInit {
           })
         }
     })
+  }
+
+  create(){
+    this.router.navigate(["productos/create"])
+  }
+
+  update(id:number){
+    this.router.navigate([`productos/update/${id}`])
   }
 
 }

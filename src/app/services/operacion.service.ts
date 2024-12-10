@@ -25,9 +25,9 @@ export class OperacionService {
     return this.http.post<Operacion>(`${environment.url_ms_negocio}/operaciones`, Operacion);
   }
 
-  /*update(Operacion: Operacion):Observable<Operacion> {
+  update(Operacion: Operacion):Observable<Operacion> {
     return this.http.put<Operacion>(`${environment.url_ms_negocio}/operaciones/${Operacion.id}`, Operacion);
-  }*/
+  }
 
   view(id: number): Observable<Operacion> {
     return this.http.get<Operacion>(`${environment.url_ms_negocio}/operaciones/${id}`);
