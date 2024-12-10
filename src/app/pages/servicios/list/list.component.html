@@ -1,1 +1,68 @@
-<p>list works!</p>
+<div class="header bg-gradient-danger pb-8 pt-5 pt-md-8"></div>
+<!-- Page content -->
+<div class="container-fluid mt--7">
+  <!-- Table -->
+  <div class="row">
+    <div class="col">
+      <div class="card shadow">
+        <div class="card-header border-0">
+          <h3 class="mb-0">Tabla</h3>
+        </div>
+        <div class="card-body">
+          <div class="table-responsive">
+            <table class="table align-items-center table-flush">
+              <thead class="thead-light">
+                <tr>
+                  <th scope="col-1">ID</th>
+                  <th scope="col-3">Nombre</th>
+                  <th scope="col-4">Direccion</th>
+                  <th scope="col-4">Telefono</th>
+                  <th scope="col-4">Horario de apertura</th>
+                  <th scope="col-4">Horario de cierre</th>
+                  <th scope="col-4">Calificacion</th>
+                  <th scope="col-4">Administrador ID</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let actual of servicios">
+                  <td>{{ actual.id }}</td>
+                  <td>{{ actual.nombre }}</td>
+                  <td>{{ actual.direccion }}</td>
+                  <td>{{ actual.telefono }}</td>
+                  <td>{{ actual.horarioApertura }}</td>
+                  <td>{{ actual.horarioCierre }}</td>
+                  <td>{{ actual.calificacion }}</td>
+                  <td>{{ actual.administrador_id }}</td>
+                  <td>
+                    <button type="button" class="btn btn-primary">Ver</button>
+                    <button type="button" class="btn btn-warning"
+                     (click)="update(actual.id)"
+                    >
+                      Actualizar
+                    </button>
+                    <button
+                      type="button"
+                      class="btn btn-danger"
+                      (click)="delete(actual.id)"
+                    >
+                      Eliminar
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <button
+            type="button"
+            class="btn btn-success btn-block"
+            (click)="create()"
+            >
+            Crear servicio
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+

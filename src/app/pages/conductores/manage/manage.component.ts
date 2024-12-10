@@ -66,8 +66,9 @@ export class ManageComponent implements OnInit {
       Swal.fire('Formulario invalido', 'ingrese correctamente los datos', 'error');
       return;
     }
-    console.log(JSON.stringify(this.conductor));
-    this.conductorService.create(this.conductor).subscribe(data => {
+    const newConductor = this.theFormGroup.value;
+    console.log(JSON.stringify(newConductor));
+    this.conductorService.create(newConductor).subscribe(data => {
       Swal.fire('Success', 'Conductor created successfully', 'success');
 
     })

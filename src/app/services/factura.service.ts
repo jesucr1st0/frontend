@@ -15,7 +15,7 @@ export class FacturaService {
   list(): Observable<Factura[]> {
     return this.http.get<Factura[]>(`${environment.url_ms_negocio}/facturas`);
   }
-  delete(id: string) {
+  delete(id: number) {
     return this.http.delete<Factura>(`${environment.url_ms_negocio}/facturas/${id}`,
     );
   }

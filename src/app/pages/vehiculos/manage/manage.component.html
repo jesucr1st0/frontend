@@ -1,1 +1,54 @@
-<p>manage works!</p>
+<div class="header bg-gradient-danger pb-8 pt-5 pt-md-8">
+   
+</div>
+<!-- Page content -->
+<div class="container-fluid mt--7">
+    <!-- Table -->
+    <div class="row">
+        <div class="col">
+            <div class="card shadow">
+                <div class="card-header border-0">
+                    <h3 class="mb-0">Crear</h3>
+                </div>
+                <form class="form" [formGroup]="theFormGroup">
+                 <div class="card-body">
+                    <div class="row">
+                        <div class="col-4">
+                            <label>Id:</label>
+                        </div>
+                        <div class="col-8">
+                            <!--<input type="text" class="form-control" disabled [(ngModel)]="theater.id">-->
+                            <p>{{vehiculo.id}}</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-4">
+                            <label>Marca:</label>
+                        </div>
+                        <div class="col-8">
+                            <input type="string" class="form-control" [(ngModel)]="vehiculo.marca" formControlName="marca">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-4">
+                            <label>Modelo:</label>
+                        </div>
+                        <div class="col-8">
+                            <input type="string" class="form-control" [(ngModel)]="vehiculo.modelo" formControlName="modelo">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-4">
+                        </div>
+                        <div class="col-8">
+                            <button  class="btn btn-success btn-block" (click)="create()">Crear</button>
+                        </div>
+                    </div>
+                 </div>
+            </form>
+                
+            </div>
+        </div>
+    </div>
+</div>
+

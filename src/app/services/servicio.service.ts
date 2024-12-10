@@ -15,7 +15,7 @@ export class ServicioService {
   list(): Observable<Servicio[]> {
     return this.http.get<Servicio[]>(`${environment.url_ms_negocio}/servicios`);
   }
-  delete(id: string) {
+  delete(id: number) {
     return this.http.delete<Servicio>(`${environment.url_ms_negocio}/servicios/${id}`,
     );
   }

@@ -7,7 +7,7 @@ import { environment } from 'src/environments/environment';
 @Injectable({
   providedIn: 'root'
 })
-export class rutaservice {
+export class RutaService {
 
   constructor(private http:HttpClient) { 
 
@@ -15,7 +15,7 @@ export class rutaservice {
   list(): Observable<Ruta[]> {
     return this.http.get<Ruta[]>(`${environment.url_ms_negocio}/rutas`);
   }
-  delete(id: string) {
+  delete(id: number) {
     return this.http.delete<Ruta>(`${environment.url_ms_negocio}/rutas/${id}`,
     );
   }

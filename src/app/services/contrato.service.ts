@@ -14,7 +14,7 @@ export class ContratoService {
   list(): Observable<Contrato[]> {
     return this.http.get<Contrato[]>(`${environment.url_ms_negocio}/contratos`);
   }
-  delete(id: string) {
+  delete(id: number) {
     return this.http.delete<Contrato>(`${environment.url_ms_negocio}/contratos/${id}`,
     );
   }

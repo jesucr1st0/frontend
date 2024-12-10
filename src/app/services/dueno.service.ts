@@ -7,14 +7,14 @@ import { environment } from 'src/environments/environment';
 @Injectable({
   providedIn: 'root'
 })
-export class duenoservice {
+export class DuenoService {
 
   constructor(private http:HttpClient) { 
   }
   list(): Observable<Dueno[]> {
     return this.http.get<Dueno[]>(`${environment.url_ms_negocio}/duenos`);
   }
-  delete(id: string) {
+  delete(id: number) {
     return this.http.delete<Dueno>(`${environment.url_ms_negocio}/duenos/${id}`,
     );
   }

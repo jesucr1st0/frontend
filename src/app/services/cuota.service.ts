@@ -15,7 +15,7 @@ export class CuotaService {
   list(): Observable<Cuota[]> {
     return this.http.get<Cuota[]>(`${environment.url_ms_negocio}/cuotas`);
   }
-  delete(id: string) {
+  delete(id: number) {
     return this.http.delete<Cuota>(`${environment.url_ms_negocio}/cuotas/${id}`,
     );
   }

@@ -14,7 +14,7 @@ export class GastoService {
   list(): Observable<Gasto[]> {
     return this.http.get<Gasto[]>(`${environment.url_ms_negocio}/gastos`);
   }
-  delete(id: string) {
+  delete(id: number) {
     return this.http.delete<Gasto>(`${environment.url_ms_negocio}/gastos/${id}`,
     );
   }

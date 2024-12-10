@@ -6,7 +6,7 @@ import { environment } from 'src/environments/environment';
 @Injectable({
   providedIn: 'root'
 })
-export class duenosvehiculoservice {
+export class DuenoVehiculoService {
 
   constructor(private http:HttpClient) { 
 
@@ -14,7 +14,7 @@ export class duenosvehiculoservice {
   list(): Observable<DuenoVehiculo[]> {
     return this.http.get<DuenoVehiculo[]>(`${environment.url_ms_negocio}/duenosvehiculos`);
   }
-  delete(id: string) {
+  delete(id: number) {
     return this.http.delete<DuenoVehiculo>(`${environment.url_ms_negocio}/duenosvehiculos/${id}`,
     );
   }
