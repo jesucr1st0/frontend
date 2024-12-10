@@ -1,5 +1,7 @@
 import { Dueno } from './dueno';
 import { User } from './user';
+import { Gasto } from './gasto';
+import { VehiculoConductor } from './vehiculo-conductor';
 export class Conductor {
   id?: number;
   nombre: string;
@@ -12,4 +14,6 @@ export class Conductor {
   dueno?: Dueno;
   usuario_id?: string;
   usuario?: User;
+  vehiculosConductores?: VehiculoConductor[];
+  gastos?: Gasto[];
 }

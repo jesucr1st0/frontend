@@ -1,3 +1,6 @@
+import { Administrador } from "./administrador";
+import { Gasto } from "./gasto";
+
 export class Servicio {
      id?: number
      nombre: string;
@@ -7,5 +10,6 @@ export class Servicio {
      horarioCierre: string;
      calificacion: number;
      administrador_id?:number
-     //administrador?: Administrador;
+     administrador?: Administrador;
+     gastos?: Gasto[];
 }

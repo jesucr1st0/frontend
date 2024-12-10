@@ -1,3 +1,6 @@
+import { Cuota } from "./cuota"
+import { Gasto } from "./gasto"
+
 export class Factura {
      id?: number
      card_number: string
@@ -14,4 +17,6 @@ export class Factura {
      cell_phone: string
      bill: string
      value: string
+     cuota?: Cuota
+     gasto?: Gasto
 }

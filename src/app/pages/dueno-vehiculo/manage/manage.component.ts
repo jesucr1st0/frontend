@@ -11,18 +11,18 @@ import Swal from 'sweetalert2';
   styleUrls: ['./manage.component.css']
 })
 export class ManageComponent implements OnInit {
-  duenovehiculo: DuenoVehiculo;
+  duenoVehiculo: DuenoVehiculo;
   mode: number;
   theFormGroup: FormGroup;
   trySend: boolean;
 
   constructor(
-    private duenovehiculoService: DuenoVehiculoService,
+    private duenoVehiculoService: DuenoVehiculoService,
     private router: Router,
     private activatedRoute: ActivatedRoute,
     private theFormBuilder: FormBuilder,
   ) { 
-    this.duenovehiculo = {id: 0, dueno_id: 0, vehiculo_id: 0};
+    this.duenoVehiculo = {id: 0, dueno_id: 0, vehiculo_id: 0};
     this.mode = 0;
     this.trySend = false;
   }
@@ -39,8 +39,8 @@ export class ManageComponent implements OnInit {
     }
 
     if(this.activatedRoute.snapshot.params.id){
-      this.duenovehiculo.id = this.activatedRoute.snapshot.params.id;
-      this.getduenovehiculo(this.duenovehiculo.id)
+      this.duenoVehiculo.id = this.activatedRoute.snapshot.params.id;
+      this.getduenoduenoVehiculo(this.duenoVehiculo.id)
     }
   }
   configFormGroup(){
@@ -55,9 +55,9 @@ export class ManageComponent implements OnInit {
     return this.theFormGroup.controls
   }
 
-  getduenovehiculo(id:number){
-    this.duenovehiculoService.view(id).subscribe(data => {
-      this.duenovehiculo = data;
+  getduenoduenoVehiculo(id:number){
+    this.duenoVehiculoService.view(id).subscribe(data => {
+      this.duenoVehiculo = data;
     })
   }
   create(){
@@ -68,10 +68,43 @@ export class ManageComponent implements OnInit {
     }
     const newDuenoVehiculo = this.theFormGroup.value;
     console.log(JSON.stringify(newDuenoVehiculo));
-    this.duenovehiculoService.create(newDuenoVehiculo).subscribe(data => {
-      Swal.fire('Success', 'duenovehiculo created successfully', 'success');
+    this.duenoVehiculoService.create(newDuenoVehiculo).subscribe(data => {
+      Swal.fire('Success', 'Dueño Vehiculo created successfully', 'success');
 
     })
+  }
+  update() {
+    if (this.theFormGroup.invalid) {
+      this.trySend = true;
+      Swal.fire('Formulario inválido', 'Ingrese correctamente los datos', 'error');
+      return;
+    }
+  
+    // Asignar los datos del formulario
+    const updatedDuenoVehiculo = this.theFormGroup.value;
+  
+    // Verificar si el ID del vehículo está disponible
+    if (!this.duenoVehiculo.id) {
+      Swal.fire('Error', 'No se ha encontrado el vehículo para actualizar', 'error');
+      return;
+    }
+  
+    // Incluye el id del vehículo en el objeto que vas a enviar
+    updatedDuenoVehiculo.id = this.duenoVehiculo.id;
+  
+    console.log("Datos a actualizar:", updatedDuenoVehiculo);
+  
+    // Llamada al servicio para actualizar el vehículo
+    this.duenoVehiculoService.update(updatedDuenoVehiculo).subscribe({
+      next: (data) => {
+        Swal.fire('Éxito', 'Vehículo actualizado exitosamente', 'success');
+        this.router.navigate(['/duenoVehiculos/list']);  // Redirige a la lista de vehículos
+      },
+      error: (err) => {
+        Swal.fire('Error', 'No se pudo actualizar el vehículo', 'error');
+        console.error('Error al actualizar vehículo:', err);
+      }
+    });
   }
 
 }

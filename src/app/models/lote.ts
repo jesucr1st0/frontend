@@ -1,5 +1,6 @@
 import { Orden } from "./orden";
 import { Producto } from "./producto";
+import { Ruta } from "./ruta";
 
 export class Lote {
     id?: number;
@@ -7,7 +8,7 @@ export class Lote {
     cantidad: number;
     estado: string;
     ruta_id?: number;
-    //ruta: Ruta;
+    ruta: Ruta;
     orden_id?: number;
     orden?: Orden;
     productos?: Producto[];

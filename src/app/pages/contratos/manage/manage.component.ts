@@ -70,8 +70,42 @@ export class ManageComponent implements OnInit {
     console.log(JSON.stringify(newContrato));
     this.contratoService.create(newContrato).subscribe(data => {
       Swal.fire('Success', 'contrato created successfully', 'success');
+      this.router.navigate(['/contratos/list']); 
 
     })
+  }
+  update() {
+    if (this.theFormGroup.invalid) {
+      this.trySend = true;
+      Swal.fire('Formulario inválido', 'Ingrese correctamente los datos', 'error');
+      return;
+    }
+  
+    // Asignar los datos del formulario
+    const updatedContrato = this.theFormGroup.value;
+  
+    // Verificar si el ID del Contrato está disponible
+    if (!this.contrato.id) {
+      Swal.fire('Error', 'No se ha encontrado el Contrato para actualizar', 'error');
+      return;
+    }
+  
+    // Incluye el id del Contrato en el objeto que vas a enviar
+    updatedContrato.id = this.contrato.id;
+  
+    console.log("Datos a actualizar:", updatedContrato);
+  
+    // Llamada al servicio para actualizar el Contrato
+    this.contratoService.update(updatedContrato).subscribe({
+      next: (data) => {
+        Swal.fire('Éxito', 'Contrato actualizado exitosamente', 'success');
+        this.router.navigate(['/contratos/list']);  // Redirige a la lista de Contratos
+      },
+      error: (err) => {
+        Swal.fire('Error', 'No se pudo actualizar el Contrato', 'error');
+        console.error('Error al actualizar Contrato:', err);
+      }
+    });
   }
 
 }
