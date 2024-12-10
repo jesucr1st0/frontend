@@ -8,7 +8,7 @@ export class Lote {
     cantidad: number;
     estado: string;
     ruta_id?: number;
-    ruta: Ruta;
+    ruta?: Ruta;
     orden_id?: number;
     orden?: Orden;
     productos?: Producto[];
