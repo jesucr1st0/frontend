@@ -74,21 +74,42 @@ export class ManageComponent implements OnInit {
     console.log(JSON.stringify(newVehiculo));
     this.vehiculoService.create(newVehiculo).subscribe(data => {
       Swal.fire('Success', 'vehiculo created successfully', 'success');
+      this.router.navigate(['/vehiculos/list']);
 
     })
   }
-  update(){
-    if(this.theFormGroup.invalid){
+  update() {
+    if (this.theFormGroup.invalid) {
       this.trySend = true;
-      Swal.fire('Formulario invalido', 'ingrese correctamente los datos', 'error');
+      Swal.fire('Formulario inválido', 'Ingrese correctamente los datos', 'error');
       return;
     }
-    const newVehiculo = this.theFormGroup.value;
-    console.log(JSON.stringify(newVehiculo));
-    this.vehiculoService.update( newVehiculo).subscribe(data => {
-      Swal.fire('Success', 'vehiculo updated successfully', 'success');
-
-    })
+  
+    // Asignar los datos del formulario
+    const updatedVehiculo = this.theFormGroup.value;
+  
+    // Verificar si el ID del vehículo está disponible
+    if (!this.vehiculo.id) {
+      Swal.fire('Error', 'No se ha encontrado el vehículo para actualizar', 'error');
+      return;
+    }
+  
+    // Incluye el id del vehículo en el objeto que vas a enviar
+    updatedVehiculo.id = this.vehiculo.id;
+  
+    console.log("Datos a actualizar:", updatedVehiculo);
+  
+    // Llamada al servicio para actualizar el vehículo
+    this.vehiculoService.update(updatedVehiculo).subscribe({
+      next: (data) => {
+        Swal.fire('Éxito', 'Vehículo actualizado exitosamente', 'success');
+        this.router.navigate(['/vehiculos/list']);  // Redirige a la lista de vehículos
+      },
+      error: (err) => {
+        Swal.fire('Error', 'No se pudo actualizar el vehículo', 'error');
+        console.error('Error al actualizar vehículo:', err);
+      }
+    });
   }
 
 }

@@ -1,9 +1,10 @@
 import { Direccion } from "./direccion";
 import { Lote } from "./lote";
+import { Ruta } from "./ruta";
 
 export class Orden {
     ruta_id?: number;
-    //ruta?: Ruta;
+    ruta?: Ruta;
     direccion_id?: number;
     direccion?: Direccion;
     lote_id?: number;

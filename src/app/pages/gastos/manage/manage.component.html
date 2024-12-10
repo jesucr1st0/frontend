@@ -65,7 +65,21 @@
                         <div class="col-4">
                         </div>
                         <div class="col-8">
-                            <button  class="btn btn-success btn-block" (click)="create()">Crear</button>
+                            <button 
+                              class="btn btn-success btn-block" 
+                              *ngIf="gasto.id; else createButton" 
+                              (click)="update()"
+                            >
+                              Actualizar
+                            </button>
+                            <ng-template #createButton>
+                              <button 
+                                class="btn btn-success btn-block" 
+                                (click)="create()"
+                              >
+                                Crear
+                              </button>
+                            </ng-template>
                         </div>
                     </div>
                  </div>

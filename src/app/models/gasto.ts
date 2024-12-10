@@ -1,4 +1,5 @@
 import { Factura } from './factura'
+import { Servicio } from './servicio'
 export class Gasto {
     id?: number
     monto: number
@@ -7,4 +8,6 @@ export class Gasto {
     tipo: string
     factura_id?: number
     factura?: Factura
+    servicio_id?: number
+    servicio?: Servicio
 }
