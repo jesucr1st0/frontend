@@ -81,14 +81,36 @@ export class ManageComponent implements OnInit {
 
   update() {
     if (this.theFormGroup.invalid) {
-      Swal.fire("Formulario incorrecto", "Ingrese correctamente los datos", "error")
-      return
+      this.trySend = true;
+      Swal.fire('Formulario inválido', 'Ingrese correctamente los datos', 'error');
+      return;
     }
-    console.log(JSON.stringify(this.producto));
-    this.productoService.update(this.producto).subscribe(data => {
-      Swal.fire("Actualizado", "Se ha actualizado exitosamente el persona natural", "success")
-      this.router.navigate(["productos/list"])
-    })
+  
+    // Asignar los datos del formulario
+    const updatedProducto = this.theFormGroup.value;
+  
+    // Verificar si el ID del vehículo está disponible
+    if (!this.producto.id) {
+      Swal.fire('Error', 'No se ha encontrado el vehículo para actualizar', 'error');
+      return;
+    }
+  
+    // Incluye el id del vehículo en el objeto que vas a enviar
+    updatedProducto.id = this.producto.id;
+  
+    console.log("Datos a actualizar:", updatedProducto);
+  
+    // Llamada al servicio para actualizar el vehículo
+    this.productoService.update(updatedProducto).subscribe({
+      next: (data) => {
+        Swal.fire('Éxito', 'Vehículo actualizado exitosamente', 'success');
+        this.router.navigate(['/productos/list']);  // Redirige a la lista de vehículos
+      },
+      error: (err) => {
+        Swal.fire('Error', 'No se pudo actualizar el vehículo', 'error');
+        console.error('Error al actualizar vehículo:', err);
+      }
+    });
   }
 
 }

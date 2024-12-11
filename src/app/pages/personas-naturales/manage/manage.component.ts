@@ -77,14 +77,36 @@ export class ManageComponent implements OnInit {
 
   update() {
     if (this.theFormGroup.invalid) {
-      Swal.fire("Formulario incorrecto", "Ingrese correctamente los datos", "error")
-      return
+      this.trySend = true;
+      Swal.fire('Formulario inválido', 'Ingrese correctamente los datos', 'error');
+      return;
     }
-    console.log(JSON.stringify(this.persona_natural));
-    this.personaNaturalService.update(this.persona_natural).subscribe(data => {
-      Swal.fire("Actualizado", "Se ha actualizado exitosamente el persona natural", "success")
-      this.router.navigate(["personas-naturales/list"])
-    })
+  
+    // Asignar los datos del formulario
+    const updatedPersonaNatural = this.theFormGroup.value;
+  
+    // Verificar si el ID del vehículo está disponible
+    if (!this.persona_natural.id) {
+      Swal.fire('Error', 'No se ha encontrado el vehículo para actualizar', 'error');
+      return;
+    }
+  
+    // Incluye el id del vehículo en el objeto que vas a enviar
+    updatedPersonaNatural.id = this.persona_natural.id;
+  
+    console.log("Datos a actualizar:", updatedPersonaNatural);
+  
+    // Llamada al servicio para actualizar el vehículo
+    this.personaNaturalService.update(updatedPersonaNatural).subscribe({
+      next: (data) => {
+        Swal.fire('Éxito', 'Vehículo actualizado exitosamente', 'success');
+        this.router.navigate(['/personas-naturales/list']);  // Redirige a la lista de vehículos
+      },
+      error: (err) => {
+        Swal.fire('Error', 'No se pudo actualizar el vehículo', 'error');
+        console.error('Error al actualizar vehículo:', err);
+      }
+    });
   }
 
 }

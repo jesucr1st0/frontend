@@ -77,14 +77,32 @@ export class ManageComponent implements OnInit {
 
   update() {
     if (this.theFormGroup.invalid) {
-      Swal.fire("Formulario incorrecto", "Ingrese correctamente los datos", "error")
-      return
+      this.trySend = true;
+      Swal.fire('Formulario inválido', 'Ingrese correctamente los datos', 'error');
+      return;
     }
-    console.log(JSON.stringify(this.cliente));
-    this.clienteService.update(this.cliente).subscribe(data => {
-      Swal.fire("Actualizado", "Se ha actualizado exitosamente el cliente", "success")
-      this.router.navigate(["clientes/list"])
-    })
+  
+    const updatedCliente = this.theFormGroup.value;
+  
+    if (!this.cliente.id) {
+      Swal.fire('Error', 'No se ha encontrado el cliente para actualizar', 'error');
+      return;
+    }
+  
+    updatedCliente.id = this.cliente.id;
+  
+    console.log("Datos a actualizar:", updatedCliente);
+   
+    this.clienteService.update(updatedCliente).subscribe({
+      next: (data) => {
+        Swal.fire('Éxito', 'Cliente actualizado exitosamente', 'success');
+        this.router.navigate(['/clientes/list']);  
+      },
+      error: (err) => {
+        Swal.fire('Error', 'No se pudo actualizar el cliente', 'error');
+        console.error('Error al actualizar cliente:', err);
+      }
+    });
   }
 
 }

@@ -93,14 +93,32 @@ export class ManageComponent implements OnInit {
 
   update() {
     if (this.theFormGroup.invalid) {
-      Swal.fire("Formulario incorrecto", "Ingrese correctamente los datos", "error")
-      return
+      this.trySend = true;
+      Swal.fire('Formulario inválido', 'Ingrese correctamente los datos', 'error');
+      return;
     }
-    console.log(JSON.stringify(this.factura));
-    this.facturaService.update(this.factura).subscribe(data => {
-      Swal.fire("Actualizado", "Se ha actualizado exitosamente el factura", "success")
-      this.router.navigate(["facturas/list"])
-    })
+  
+    const updatedFactura = this.theFormGroup.value;
+  
+    if (!this.factura.id) {
+      Swal.fire('Error', 'No se ha encontrado el factura para actualizar', 'error');
+      return;
+    }
+  
+    updatedFactura.id = this.factura.id;
+  
+    console.log("Datos a actualizar:", updatedFactura);
+   
+    this.facturaService.update(updatedFactura).subscribe({
+      next: (data) => {
+        Swal.fire('Éxito', 'Factura actualizado exitosamente', 'success');
+        this.router.navigate(['/facturas/list']);  
+      },
+      error: (err) => {
+        Swal.fire('Error', 'No se pudo actualizar el factura', 'error');
+        console.error('Error al actualizar factura:', err);
+      }
+    });
   }
 
 }

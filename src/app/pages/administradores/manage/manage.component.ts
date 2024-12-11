@@ -76,14 +76,32 @@ export class ManageComponent implements OnInit {
 
   update() {
     if (this.theFormGroup.invalid) {
-      Swal.fire("Formulario incorrecto", "Ingrese correctamente los datos", "error")
-      return
+      this.trySend = true;
+      Swal.fire('Formulario inválido', 'Ingrese correctamente los datos', 'error');
+      return;
     }
-    console.log(JSON.stringify(this.administrador));
-    this.administradorService.update(this.administrador).subscribe(data => {
-      Swal.fire("Actualizado", "Se ha actualizado exitosamente el administrador", "success")
-      this.router.navigate(["administradores/list"])
-    })
+  
+    const updatedAdministrador = this.theFormGroup.value;
+  
+    if (!this.administrador.id) {
+      Swal.fire('Error', 'No se ha encontrado el administrador para actualizar', 'error');
+      return;
+    }
+  
+    updatedAdministrador.id = this.administrador.id;
+  
+    console.log("Datos a actualizar:", updatedAdministrador);
+   
+    this.administradorService.update(updatedAdministrador).subscribe({
+      next: (data) => {
+        Swal.fire('Éxito', 'Administrador actualizado exitosamente', 'success');
+        this.router.navigate(['/administradors/list']);  
+      },
+      error: (err) => {
+        Swal.fire('Error', 'No se pudo actualizar el administrador', 'error');
+        console.error('Error al actualizar administrador:', err);
+      }
+    });
   }
 
 

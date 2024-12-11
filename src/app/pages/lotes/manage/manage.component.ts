@@ -79,14 +79,32 @@ export class ManageComponent implements OnInit {
 
   update() {
     if (this.theFormGroup.invalid) {
-      Swal.fire("Formulario incorrecto", "Ingrese correctamente los datos", "error")
-      return
+      this.trySend = true;
+      Swal.fire('Formulario inválido', 'Ingrese correctamente los datos', 'error');
+      return;
     }
-    console.log(JSON.stringify(this.lote));
-    this.loteService.update(this.lote).subscribe(data => {
-      Swal.fire("Actualizado", "Se ha actualizado exitosamente el lote", "success")
-      this.router.navigate(["lotes/list"])
-    })
+  
+    const updatedLote = this.theFormGroup.value;
+  
+    if (!this.lote.id) {
+      Swal.fire('Error', 'No se ha encontrado el lote para actualizar', 'error');
+      return;
+    }
+  
+    updatedLote.id = this.lote.id;
+  
+    console.log("Datos a actualizar:", updatedLote);
+   
+    this.loteService.update(updatedLote).subscribe({
+      next: (data) => {
+        Swal.fire('Éxito', 'Lote actualizado exitosamente', 'success');
+        this.router.navigate(['/lotes/list']);  
+      },
+      error: (err) => {
+        Swal.fire('Error', 'No se pudo actualizar el lote', 'error');
+        console.error('Error al actualizar lote:', err);
+      }
+    });
   }
 
 }
