@@ -117,7 +117,7 @@ export class ManageComponent implements OnInit {
     this.conductorService.update(updatedConductor).subscribe({
       next: (data) => {
         Swal.fire('Éxito', 'Conductor actualizado exitosamente', 'success');
-        this.router.navigate(['/vehiculos/list']);  // Redirige a la lista de Conductors
+        this.router.navigate(['/conductores/list']);  // Redirige a la lista de Conductors
       },
       error: (err) => {
         Swal.fire('Error', 'No se pudo actualizar el Conductor', 'error');

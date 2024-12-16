@@ -48,8 +48,8 @@ export class ManageComponent implements OnInit {
       // primer elemento del vector, valor por defecto
       // lista, serán las reglas
       cliente_id: [0, [Validators.required, Validators.minLength(1)]],
-      fecha_inicio: [new(Date), [Validators.required, Validators.minLength(1)]],
-      fecha_fin: [new(Date), [Validators.required, Validators.minLength(1)]],
+      fecha_inicio: [new(Date), [Validators.required, Validators.minLength(2)]],
+      fecha_fin: [new(Date), [Validators.required, Validators.minLength(2)]],
       tipo_contrato: ['', [Validators.required, Validators.minLength(1)]],
       monto: [0, [Validators.required, Validators.minLength(1)]],
       estado: ['', [Validators.required, Validators.minLength(1)]],
@@ -65,16 +65,16 @@ export class ManageComponent implements OnInit {
   getcontrato(id:number){
     this.contratoService.view(id).subscribe(data => {
       this.contrato = data;
-      this.theFormGroup=this.theFormBuilder.group({
-        cliente_id: [data.cliente_id, [Validators.required, Validators.minLength(1)]],
-        fecha_inicio: [data.fecha_inicio, [Validators.required, Validators.minLength(1)]],
-        fecha_fin: [data.fecha_fin, [Validators.required, Validators.minLength(1)]],
-        tipo_contrato: [data.tipo_contrato, [Validators.required, Validators.minLength(1)]],
-        monto: [data.monto, [Validators.required, Validators.minLength(1)]],
-        estado: [data.estado, [Validators.required, Validators.minLength(1)]],
-        descripcion: [data.descripcion, [Validators.required, Validators.minLength(1)]],
-        terminos_y_condiciones: [data.terminos_y_condiciones, [Validators.required, Validators.minLength(1)]],
-      })
+      this.theFormGroup.patchValue({
+        cliente_id: data.cliente_id,
+        fecha_inicio: data.fecha_inicio, 
+        fecha_fin: data.fecha_fin, 
+        tipo_contrato: data.tipo_contrato,
+        monto: data.monto,
+        estado: data.estado, 
+        descripcion: data.descripcion, 
+        terminos_y_condiciones: data.terminos_y_condiciones,
+      });
     })
   }
   create(){
@@ -89,7 +89,12 @@ export class ManageComponent implements OnInit {
       Swal.fire('Success', 'contrato created successfully', 'success');
       this.router.navigate(['/contratos/list']); 
 
-    })
+    },
+    error => {
+        Swal.fire('Error', 'Hubo un error al crear el contrato', 'error');
+        console.error('Error al crear contrato:', error);
+      }
+    );
   }
   update() {
     if (this.theFormGroup.invalid) {
