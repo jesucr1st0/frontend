@@ -27,6 +27,9 @@
                         </div>
                         <div class="col-8">
                             <input type="text" class="form-control" [(ngModel)]="direccion.calle" formControlName="calle">
+                            <div *ngIf="getTheFormGroup.calle.errors && (getTheFormGroup.calle.dirty || getTheFormGroup.calle.touched || trySend)">
+                                <strong *ngIf="getTheFormGroup.calle.errors.required" class="msnError">Requerido</strong>
+                            </div>
                         </div>
                     </div>
                     <div class="row">
@@ -35,13 +38,30 @@
                         </div>
                         <div class="col-8">
                             <input type="text" class="form-control" [(ngModel)]="direccion.carrera" formControlName="carrera">
+                            <div *ngIf="getTheFormGroup.carrera.errors && (getTheFormGroup.carrera.dirty || getTheFormGroup.carrera.touched || trySend)">
+                                <strong *ngIf="getTheFormGroup.carrera.errors.required" class="msnError">Requerido</strong><strong *ngIf="getTheFormGroup.carrera.errors.pattern" class="msnError">Caracteres escritos inválidos</strong>
+                            </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-4">
                         </div>
                         <div class="col-8">
-                            <button  class="btn btn-success btn-block" (click)="create()">Crear</button>
+                            <button 
+                              class="btn btn-success btn-block" 
+                              *ngIf="direccion.id; else createButton" 
+                              (click)="update()"
+                            >
+                              Actualizar
+                            </button>
+                            <ng-template #createButton>
+                              <button 
+                                class="btn btn-success btn-block" 
+                                (click)="create()"
+                              >
+                                Crear
+                              </button>
+                            </ng-template>
                         </div>
                     </div>
                  </div>

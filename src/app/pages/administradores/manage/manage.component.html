@@ -27,13 +27,31 @@
                         </div>
                         <div class="col-8">
                             <input type="text" class="form-control" [(ngModel)]="administrador.usuario_id" formControlName="usuario_id">
+                            <div *ngIf="getTheFormGroup.usuario_id.errors && (getTheFormGroup.usuario_id.dirty || getTheFormGroup.usuario_id.touched || trySend)">
+                                <strong *ngIf="getTheFormGroup.usuario_id.errors.required" class="msnError">Requerido</strong>
+                                <strong *ngIf="getTheFormGroup.usuario_id.errors.min" class="msnError">Valor mínimo debe ser 1</strong>
+                            </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-4">
                         </div>
                         <div class="col-8">
-                            <button  class="btn btn-success btn-block" (click)="create()">Crear</button>
+                            <button 
+                              class="btn btn-success btn-block" 
+                              *ngIf="administrador.id; else createButton" 
+                              (click)="update()"
+                            >
+                              Actualizar
+                            </button>
+                            <ng-template #createButton>
+                              <button 
+                                class="btn btn-success btn-block" 
+                                (click)="create()"
+                              >
+                                Crear
+                              </button>
+                            </ng-template>
                         </div>
                     </div>
                  </div>

@@ -23,6 +23,14 @@
                     </div>
                     <div class="row">
                         <div class="col-4">
+                            <label>Número de factura:</label>
+                        </div>
+                        <div class="col-8">
+                            <p>{{factura.bill}}</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-4">
                             <label>Número de tarjeta:</label>
                         </div>
                         <div class="col-8">
@@ -119,14 +127,6 @@
                     </div>
                     <div class="row">
                         <div class="col-4">
-                            <label>Número de factura:</label>
-                        </div>
-                        <div class="col-8">
-                            <input type="text" class="form-control" [(ngModel)]="factura.id" formControlName="bill">
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-4">
                             <label>Monto:</label>
                         </div>
                         <div class="col-8">
@@ -137,7 +137,21 @@
                         <div class="col-4">
                         </div>
                         <div class="col-8">
-                            <button  class="btn btn-success btn-block" (click)="create()">Crear</button>
+                            <button 
+                              class="btn btn-success btn-block" 
+                              *ngIf="factura.id; else createButton" 
+                              (click)="update()"
+                            >
+                              Actualizar
+                            </button>
+                            <ng-template #createButton>
+                              <button 
+                                class="btn btn-success btn-block" 
+                                (click)="create()"
+                              >
+                                Crear
+                              </button>
+                            </ng-template>
                         </div>
                     </div>
                  </div>

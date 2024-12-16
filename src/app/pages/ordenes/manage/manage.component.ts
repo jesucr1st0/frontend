@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Orden } from 'src/app/models/orden';
 import { OrdenService } from 'src/app/services/orden.service';
@@ -48,9 +48,9 @@ export class ManageComponent implements OnInit {
     this.theFormGroup=this.theFormBuilder.group({
       // primer elemento del vector, valor por defecto
       // lista, serán las reglas
-      ruta_id:[null],
-      direccion_id:[null],
-      lote_id:[null],
+      ruta_id:[null, [Validators.required, Validators.pattern(/^\d+$/)]],
+      direccion_id:[null, [Validators.required, Validators.pattern(/^\d+$/)]],
+      lote_id:[null, [Validators.required, Validators.pattern(/^\d+$/)]],
     })
   }
   get getTheFormGroup(){
@@ -78,14 +78,36 @@ export class ManageComponent implements OnInit {
 
   update() {
     if (this.theFormGroup.invalid) {
-      Swal.fire("Formulario incorrecto", "Ingrese correctamente los datos", "error")
-      return
+      this.trySend = true;
+      Swal.fire('Formulario inválido', 'Ingrese correctamente los datos', 'error');
+      return;
     }
-    console.log(JSON.stringify(this.orden));
-    this.ordenService.update(this.orden).subscribe(data => {
-      Swal.fire("Actualizado", "Se ha actualizado exitosamente el orden", "success")
-      this.router.navigate(["ordenes/list"])
-    })
+  
+    // Asignar los datos del formulario
+    const updatedOrden = this.theFormGroup.value;
+  
+    // Verificar si el ID del vehículo está disponible
+    if (!this.orden.id) {
+      Swal.fire('Error', 'No se ha encontrado el vehículo para actualizar', 'error');
+      return;
+    }
+  
+    // Incluye el id del vehículo en el objeto que vas a enviar
+    updatedOrden.id = this.orden.id;
+  
+    console.log("Datos a actualizar:", updatedOrden);
+  
+    // Llamada al servicio para actualizar el vehículo
+    this.ordenService.update(updatedOrden).subscribe({
+      next: (data) => {
+        Swal.fire('Éxito', 'Vehículo actualizado exitosamente', 'success');
+        this.router.navigate(['/ordenes/list']);  // Redirige a la lista de vehículos
+      },
+      error: (err) => {
+        Swal.fire('Error', 'No se pudo actualizar el vehículo', 'error');
+        console.error('Error al actualizar vehículo:', err);
+      }
+    });
   }
 
 }

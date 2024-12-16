@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Lote } from 'src/app/models/lote';
 import { LoteService } from 'src/app/services/lote.service';
@@ -48,10 +48,10 @@ export class ManageComponent implements OnInit {
     this.theFormGroup=this.theFormBuilder.group({
       // primer elemento del vector, valor por defecto
       // lista, serán las reglas
-      peso_total:[0],
-      cantidad:[0],
+      peso_total:[0, [Validators.pattern(/^\d+$/), Validators.min(200), Validators.max(1000)]],
+      cantidad:[0, [Validators.pattern(/^\d+$/), Validators.min(1), Validators.max(20)]],
       estado:[''],
-      ruta_id:[null]
+      ruta_id:[null, [Validators.required, Validators.pattern(/^\d+$/)]]
     })
   }
   get getTheFormGroup(){
@@ -79,14 +79,32 @@ export class ManageComponent implements OnInit {
 
   update() {
     if (this.theFormGroup.invalid) {
-      Swal.fire("Formulario incorrecto", "Ingrese correctamente los datos", "error")
-      return
+      this.trySend = true;
+      Swal.fire('Formulario inválido', 'Ingrese correctamente los datos', 'error');
+      return;
     }
-    console.log(JSON.stringify(this.lote));
-    this.loteService.update(this.lote).subscribe(data => {
-      Swal.fire("Actualizado", "Se ha actualizado exitosamente el lote", "success")
-      this.router.navigate(["lotes/list"])
-    })
+  
+    const updatedLote = this.theFormGroup.value;
+  
+    if (!this.lote.id) {
+      Swal.fire('Error', 'No se ha encontrado el lote para actualizar', 'error');
+      return;
+    }
+  
+    updatedLote.id = this.lote.id;
+  
+    console.log("Datos a actualizar:", updatedLote);
+   
+    this.loteService.update(updatedLote).subscribe({
+      next: (data) => {
+        Swal.fire('Éxito', 'Lote actualizado exitosamente', 'success');
+        this.router.navigate(['/lotes/list']);  
+      },
+      error: (err) => {
+        Swal.fire('Error', 'No se pudo actualizar el lote', 'error');
+        console.error('Error al actualizar lote:', err);
+      }
+    });
   }
 
 }

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Administrador } from 'src/app/models/administrador';
 import { AdministradorService } from 'src/app/services/administrador.service';
@@ -48,7 +48,7 @@ export class ManageComponent implements OnInit {
     this.theFormGroup=this.theFormBuilder.group({
       // primer elemento del vector, valor por defecto
       // lista, serán las reglas
-      usuario_id: [null]
+      usuario_id: [null, [Validators.required, Validators.min(1)]]
     })
   }
   get getTheFormGroup(){
@@ -76,14 +76,32 @@ export class ManageComponent implements OnInit {
 
   update() {
     if (this.theFormGroup.invalid) {
-      Swal.fire("Formulario incorrecto", "Ingrese correctamente los datos", "error")
-      return
+      this.trySend = true;
+      Swal.fire('Formulario inválido', 'Ingrese correctamente los datos', 'error');
+      return;
     }
-    console.log(JSON.stringify(this.administrador));
-    this.administradorService.update(this.administrador).subscribe(data => {
-      Swal.fire("Actualizado", "Se ha actualizado exitosamente el administrador", "success")
-      this.router.navigate(["administradores/list"])
-    })
+  
+    const updatedAdministrador = this.theFormGroup.value;
+  
+    if (!this.administrador.id) {
+      Swal.fire('Error', 'No se ha encontrado el administrador para actualizar', 'error');
+      return;
+    }
+  
+    updatedAdministrador.id = this.administrador.id;
+  
+    console.log("Datos a actualizar:", updatedAdministrador);
+   
+    this.administradorService.update(updatedAdministrador).subscribe({
+      next: (data) => {
+        Swal.fire('Éxito', 'Administrador actualizado exitosamente', 'success');
+        this.router.navigate(['/administradors/list']);  
+      },
+      error: (err) => {
+        Swal.fire('Error', 'No se pudo actualizar el administrador', 'error');
+        console.error('Error al actualizar administrador:', err);
+      }
+    });
   }
 
 

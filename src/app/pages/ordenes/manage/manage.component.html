@@ -27,6 +27,10 @@
                         </div>
                         <div class="col-8">
                             <input type="text" class="form-control" [(ngModel)]="orden.ruta_id" formControlName="ruta_id">
+                            <div *ngIf="getTheFormGroup.ruta_id.errors && (getTheFormGroup.ruta_id.dirty || getTheFormGroup.ruta_id.touched || trySend)">
+                                <strong *ngIf="getTheFormGroup.ruta_id.errors.required" class="msnError">Requerido</strong>
+                                <strong *ngIf="getTheFormGroup.ruta_id.errors.pattern" class="msnError">Debe ser un número</strong>
+                            </div>
                         </div>
                     </div>
                     <div class="row">
@@ -35,6 +39,10 @@
                         </div>
                         <div class="col-8">
                             <input type="text" class="form-control" [(ngModel)]="orden.direccion_id" formControlName="direccion_id">
+                            <div *ngIf="getTheFormGroup.direccion_id.errors && (getTheFormGroup.direccion_id.dirty || getTheFormGroup.direccion_id.touched || trySend)">
+                                <strong *ngIf="getTheFormGroup.direccion_id.errors.required" class="msnError">Requerido</strong>
+                                <strong *ngIf="getTheFormGroup.direccion_id.errors.pattern" class="msnError">Debe ser un número</strong>
+                            </div>
                         </div>
                     </div>
                     <div class="row">
@@ -43,13 +51,31 @@
                         </div>
                         <div class="col-8">
                             <input type="text" class="form-control" [(ngModel)]="orden.lote_id" formControlName="lote_id">
+                            <div *ngIf="getTheFormGroup.lote_id.errors && (getTheFormGroup.lote_id.dirty || getTheFormGroup.lote_id.touched || trySend)">
+                                <strong *ngIf="getTheFormGroup.lote_id.errors.required" class="msnError">Requerido</strong>
+                                <strong *ngIf="getTheFormGroup.lote_id.errors.pattern" class="msnError">Debe ser un número</strong>
+                            </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-4">
                         </div>
                         <div class="col-8">
-                            <button  class="btn btn-success btn-block" (click)="create()">Crear</button>
+                            <button 
+                              class="btn btn-success btn-block" 
+                              *ngIf="orden.id; else createButton" 
+                              (click)="update()"
+                            >
+                              Actualizar
+                            </button>
+                            <ng-template #createButton>
+                              <button 
+                                class="btn btn-success btn-block" 
+                                (click)="create()"
+                              >
+                                Crear
+                              </button>
+                            </ng-template>
                         </div>
                     </div>
                  </div>

@@ -83,6 +83,11 @@ export class ManageComponent implements OnInit {
       Swal.fire('Formulario invalido', 'ingrese correctamente los datos', 'error');
       return;
     }
+
+    this.theFormGroup.patchValue({
+      bill: 'AUTO-BILL-' + this.generateRandomString(8) // Genera una cadena aleatoria de 8 caracteres
+    });
+    
     const newFactura = this.theFormGroup.value;
     console.log(JSON.stringify(newFactura));
     this.facturaService.create(newFactura).subscribe(data => {
@@ -93,14 +98,42 @@ export class ManageComponent implements OnInit {
 
   update() {
     if (this.theFormGroup.invalid) {
-      Swal.fire("Formulario incorrecto", "Ingrese correctamente los datos", "error")
-      return
+      this.trySend = true;
+      Swal.fire('Formulario inválido', 'Ingrese correctamente los datos', 'error');
+      return;
     }
-    console.log(JSON.stringify(this.factura));
-    this.facturaService.update(this.factura).subscribe(data => {
-      Swal.fire("Actualizado", "Se ha actualizado exitosamente el factura", "success")
-      this.router.navigate(["facturas/list"])
-    })
+  
+    const updatedFactura = this.theFormGroup.value;
+  
+    if (!this.factura.id) {
+      Swal.fire('Error', 'No se ha encontrado el factura para actualizar', 'error');
+      return;
+    }
+  
+    updatedFactura.id = this.factura.id;
+  
+    console.log("Datos a actualizar:", updatedFactura);
+   
+    this.facturaService.update(updatedFactura).subscribe({
+      next: (data) => {
+        Swal.fire('Éxito', 'Factura actualizado exitosamente', 'success');
+        this.router.navigate(['/facturas/list']);  
+      },
+      error: (err) => {
+        Swal.fire('Error', 'No se pudo actualizar el factura', 'error');
+        console.error('Error al actualizar factura:', err);
+      }
+    });
+  }
+
+  generateRandomString(length: number): string {
+    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    let result = '';
+    for (let i = 0; i < length; i++) {
+      const randomIndex = Math.floor(Math.random() * characters.length);
+      result += characters.charAt(randomIndex);
+    }
+    return result;
   }
 
 }

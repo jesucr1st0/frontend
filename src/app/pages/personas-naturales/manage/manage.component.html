@@ -27,6 +27,10 @@
                         </div>
                         <div class="col-8">
                             <input type="text" class="form-control" [(ngModel)]="persona_natural.cliente_id" formControlName="cliente_id">
+                            <div *ngIf="getTheFormGroup.cliente_id.errors && (getTheFormGroup.cliente_id.dirty || getTheFormGroup.cliente_id.touched || trySend)">
+                                <strong *ngIf="getTheFormGroup.cliente_id.errors.required" class="msnError">Requerido</strong>
+                                <strong *ngIf="getTheFormGroup.cliente_id.errors.pattern" class="msnError">Debe ser un número</strong>
+                            </div>
                         </div>
                     </div>
                     <div class="row">
@@ -35,13 +39,30 @@
                         </div>
                         <div class="col-8">
                             <input type="text" class="form-control" [(ngModel)]="persona_natural.usuario_id" formControlName="usuario_id">
+                            <div *ngIf="getTheFormGroup.usuario_id.errors && (getTheFormGroup.usuario_id.dirty || getTheFormGroup.usuario_id.touched || trySend)">
+                                <strong *ngIf="getTheFormGroup.usuario_id.errors.required" class="msnError">Requerido</strong>
+                            </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-4">
                         </div>
                         <div class="col-8">
-                            <button  class="btn btn-success btn-block" (click)="create()">Crear</button>
+                            <button 
+                              class="btn btn-success btn-block" 
+                              *ngIf="persona_natural.id; else createButton" 
+                              (click)="update()"
+                            >
+                              Actualizar
+                            </button>
+                            <ng-template #createButton>
+                              <button 
+                                class="btn btn-success btn-block" 
+                                (click)="create()"
+                              >
+                                Crear
+                              </button>
+                            </ng-template>
                         </div>
                     </div>
                  </div>

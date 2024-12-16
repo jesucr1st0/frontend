@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Direccion } from 'src/app/models/direccion';
 import { DireccionService } from 'src/app/services/direccion.service';
@@ -48,8 +48,8 @@ export class ManageComponent implements OnInit {
     this.theFormGroup=this.theFormBuilder.group({
       // primer elemento del vector, valor por defecto
       // lista, serán las reglas
-      calle:[''],
-      carrera:[''],
+      calle:['', Validators.required],
+      carrera:['', Validators.required],
       municipio_id:[null]
     })
   }
@@ -78,14 +78,32 @@ export class ManageComponent implements OnInit {
 
   update() {
     if (this.theFormGroup.invalid) {
-      Swal.fire("Formulario incorrecto", "Ingrese correctamente los datos", "error")
-      return
+      this.trySend = true;
+      Swal.fire('Formulario inválido', 'Ingrese correctamente los datos', 'error');
+      return;
     }
-    console.log(JSON.stringify(this.direccion));
-    this.direccionService.update(this.direccion).subscribe(data => {
-      Swal.fire("Actualizado", "Se ha actualizado exitosamente el direccion", "success")
-      this.router.navigate(["direcciones/list"])
-    })
+  
+    const updatedDireccion = this.theFormGroup.value;
+  
+    if (!this.direccion.id) {
+      Swal.fire('Error', 'No se ha encontrado el direccion para actualizar', 'error');
+      return;
+    }
+  
+    updatedDireccion.id = this.direccion.id;
+  
+    console.log("Datos a actualizar:", updatedDireccion);
+   
+    this.direccionService.update(updatedDireccion).subscribe({
+      next: (data) => {
+        Swal.fire('Éxito', 'Direccion actualizado exitosamente', 'success');
+        this.router.navigate(['/direcciones/list']);  
+      },
+      error: (err) => {
+        Swal.fire('Error', 'No se pudo actualizar el direccion', 'error');
+        console.error('Error al actualizar direccion:', err);
+      }
+    });
   }
 
 }

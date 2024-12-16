@@ -27,6 +27,11 @@
                         </div>
                         <div class="col-8">
                             <input type="text" class="form-control" [(ngModel)]="lote.peso_total" formControlName="peso_total">
+                            <div *ngIf="getTheFormGroup.peso_total.errors && (getTheFormGroup.peso_total.dirty || getTheFormGroup.peso_total.touched || trySend)">
+                                <strong *ngIf="getTheFormGroup.peso_total.errors.pattern" class="msnError">Caracteres inválidos</strong>
+                                <strong *ngIf="getTheFormGroup.peso_total.errors.min" class="msnError">Elija un número entre 200 y 1000</strong>
+                                <strong *ngIf="getTheFormGroup.peso_total.errors.max" class="msnError">Elija un número entre 200 y 1000</strong>
+                            </div>
                         </div>
                     </div>
                     <div class="row">
@@ -35,6 +40,11 @@
                         </div>
                         <div class="col-8">
                             <input type="text" class="form-control" [(ngModel)]="lote.cantidad" formControlName="cantidad">
+                            <div *ngIf="getTheFormGroup.cantidad.errors && (getTheFormGroup.cantidad.dirty || getTheFormGroup.cantidad.touched || trySend)">
+                                <strong *ngIf="getTheFormGroup.cantidad.errors.pattern" class="msnError">Caracteres inválidos</strong>
+                                <strong *ngIf="getTheFormGroup.cantidad.errors.min" class="msnError">Elija un número entre 1 y 20</strong>
+                                <strong *ngIf="getTheFormGroup.cantidad.errors.max" class="msnError">Elija un número entre 1 y 20</strong>
+                            </div>
                         </div>
                     </div>
                     <div class="row">
@@ -51,13 +61,31 @@
                         </div>
                         <div class="col-8">
                             <input type="text" class="form-control" [(ngModel)]="lote.ruta_id" formControlName="ruta_id">
+                            <div *ngIf="getTheFormGroup.ruta_id.errors && (getTheFormGroup.ruta_id.dirty || getTheFormGroup.ruta_id.touched || trySend)">
+                                <strong *ngIf="getTheFormGroup.ruta_id.errors.required" class="msnError">Requerido</strong>
+                                <strong *ngIf="getTheFormGroup.ruta_id.errors.pattern" class="msnError">Debe ser un número</strong>
+                            </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-4">
                         </div>
                         <div class="col-8">
-                            <button  class="btn btn-success btn-block" (click)="create()">Crear</button>
+                            <button 
+                              class="btn btn-success btn-block" 
+                              *ngIf="lote.id; else createButton" 
+                              (click)="update()"
+                            >
+                              Actualizar
+                            </button>
+                            <ng-template #createButton>
+                              <button 
+                                class="btn btn-success btn-block" 
+                                (click)="create()"
+                              >
+                                Crear
+                              </button>
+                            </ng-template>
                         </div>
                     </div>
                  </div>

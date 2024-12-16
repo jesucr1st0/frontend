@@ -48,12 +48,12 @@ export class ManageComponent implements OnInit {
     this.theFormGroup=this.theFormBuilder.group({
       // primer elemento del vector, valor por defecto
       // lista, serán las reglas
-      nombre:[""],
-      peso:[0],
-      cantidad_disponible:[0],
-      precio:[0],
-      cliente_id:[1, [Validators.required,Validators.min(1),Validators.max(1000000)]],
-      lote_id:[1, [Validators.required,Validators.min(1),Validators.max(1000000)]]
+      nombre:["",  [Validators.pattern(/^[a-zA-Z0-9 ]+$/)]],
+      peso:[0, [Validators.min(0.5), Validators.max(10)]],
+      cantidad_disponible:[0, [Validators.min(1), Validators.max(500)]],
+      precio:[0, [Validators.min(1000), Validators.max(50000)]],
+      cliente_id:[1, [Validators.required, Validators.pattern(/^\d+$/)]],
+      lote_id:[1, [Validators.required, Validators.pattern(/^\d+$/)]]
     })
   }
   get getTheFormGroup(){
@@ -81,14 +81,36 @@ export class ManageComponent implements OnInit {
 
   update() {
     if (this.theFormGroup.invalid) {
-      Swal.fire("Formulario incorrecto", "Ingrese correctamente los datos", "error")
-      return
+      this.trySend = true;
+      Swal.fire('Formulario inválido', 'Ingrese correctamente los datos', 'error');
+      return;
     }
-    console.log(JSON.stringify(this.producto));
-    this.productoService.update(this.producto).subscribe(data => {
-      Swal.fire("Actualizado", "Se ha actualizado exitosamente el persona natural", "success")
-      this.router.navigate(["productos/list"])
-    })
+  
+    // Asignar los datos del formulario
+    const updatedProducto = this.theFormGroup.value;
+  
+    // Verificar si el ID del vehículo está disponible
+    if (!this.producto.id) {
+      Swal.fire('Error', 'No se ha encontrado el vehículo para actualizar', 'error');
+      return;
+    }
+  
+    // Incluye el id del vehículo en el objeto que vas a enviar
+    updatedProducto.id = this.producto.id;
+  
+    console.log("Datos a actualizar:", updatedProducto);
+  
+    // Llamada al servicio para actualizar el vehículo
+    this.productoService.update(updatedProducto).subscribe({
+      next: (data) => {
+        Swal.fire('Éxito', 'Vehículo actualizado exitosamente', 'success');
+        this.router.navigate(['/productos/list']);  // Redirige a la lista de vehículos
+      },
+      error: (err) => {
+        Swal.fire('Error', 'No se pudo actualizar el vehículo', 'error');
+        console.error('Error al actualizar vehículo:', err);
+      }
+    });
   }
 
 }

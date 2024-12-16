@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Operacion } from 'src/app/models/operacion';
 import { OperacionService } from 'src/app/services/operacion.service';
@@ -48,8 +48,8 @@ export class ManageComponent implements OnInit {
     this.theFormGroup=this.theFormBuilder.group({
       // primer elemento del vector, valor por defecto
       // lista, serán las reglas
-      municipio_id:[null],
-      vehiculo_id:[null],
+      municipio_id:[1, [Validators.required, Validators.pattern(/^\d+$/)]],
+      vehiculo_id:[null, [Validators.required, Validators.pattern(/^\d+$/)]],
     })
   }
   get getTheFormGroup(){
@@ -77,14 +77,32 @@ export class ManageComponent implements OnInit {
 
   update() {
     if (this.theFormGroup.invalid) {
-      Swal.fire("Formulario incorrecto", "Ingrese correctamente los datos", "error")
-      return
+      this.trySend = true;
+      Swal.fire('Formulario inválido', 'Ingrese correctamente los datos', 'error');
+      return;
     }
-    console.log(JSON.stringify(this.operacion));
-    this.operacionService.update(this.operacion).subscribe(data => {
-      Swal.fire("Actualizado", "Se ha actualizado exitosamente el operacion", "success")
-      this.router.navigate(["operaciones/list"])
-    })
+  
+    const updatedOperacion = this.theFormGroup.value;
+  
+    if (!this.operacion.id) {
+      Swal.fire('Error', 'No se ha encontrado el operación para actualizar', 'error');
+      return;
+    }
+  
+    updatedOperacion.id = this.operacion.id;
+  
+    console.log("Datos a actualizar:", updatedOperacion);
+   
+    this.operacionService.update(updatedOperacion).subscribe({
+      next: (data) => {
+        Swal.fire('Éxito', 'Vehículo actualizado exitosamente', 'success');
+        this.router.navigate(['/operacions/list']);  
+      },
+      error: (err) => {
+        Swal.fire('Error', 'No se pudo actualizar el operación', 'error');
+        console.error('Error al actualizar operación:', err);
+      }
+    });
   }
 
 }
