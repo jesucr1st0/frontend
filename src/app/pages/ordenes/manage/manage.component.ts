@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Orden } from 'src/app/models/orden';
 import { OrdenService } from 'src/app/services/orden.service';
@@ -48,9 +48,9 @@ export class ManageComponent implements OnInit {
     this.theFormGroup=this.theFormBuilder.group({
       // primer elemento del vector, valor por defecto
       // lista, serán las reglas
-      ruta_id:[null],
-      direccion_id:[null],
-      lote_id:[null],
+      ruta_id:[null, [Validators.required, Validators.pattern(/^\d+$/)]],
+      direccion_id:[null, [Validators.required, Validators.pattern(/^\d+$/)]],
+      lote_id:[null, [Validators.required, Validators.pattern(/^\d+$/)]],
     })
   }
   get getTheFormGroup(){

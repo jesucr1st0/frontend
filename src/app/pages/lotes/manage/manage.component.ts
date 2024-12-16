@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Lote } from 'src/app/models/lote';
 import { LoteService } from 'src/app/services/lote.service';
@@ -48,10 +48,10 @@ export class ManageComponent implements OnInit {
     this.theFormGroup=this.theFormBuilder.group({
       // primer elemento del vector, valor por defecto
       // lista, serán las reglas
-      peso_total:[0],
-      cantidad:[0],
+      peso_total:[0, [Validators.pattern(/^\d+$/), Validators.min(200), Validators.max(1000)]],
+      cantidad:[0, [Validators.pattern(/^\d+$/), Validators.min(1), Validators.max(20)]],
       estado:[''],
-      ruta_id:[null]
+      ruta_id:[null, [Validators.required, Validators.pattern(/^\d+$/)]]
     })
   }
   get getTheFormGroup(){

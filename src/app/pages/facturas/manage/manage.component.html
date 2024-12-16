@@ -23,6 +23,14 @@
                     </div>
                     <div class="row">
                         <div class="col-4">
+                            <label>Número de factura:</label>
+                        </div>
+                        <div class="col-8">
+                            <p>{{factura.bill}}</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-4">
                             <label>Número de tarjeta:</label>
                         </div>
                         <div class="col-8">
@@ -115,14 +123,6 @@
                         </div>
                         <div class="col-8">
                             <input type="text" class="form-control" [(ngModel)]="factura.cell_phone" formControlName="cell_phone">
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-4">
-                            <label>Número de factura:</label>
-                        </div>
-                        <div class="col-8">
-                            <input type="text" class="form-control" [(ngModel)]="factura.id" formControlName="bill">
                         </div>
                     </div>
                     <div class="row">

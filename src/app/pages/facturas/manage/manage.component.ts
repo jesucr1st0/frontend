@@ -83,6 +83,11 @@ export class ManageComponent implements OnInit {
       Swal.fire('Formulario invalido', 'ingrese correctamente los datos', 'error');
       return;
     }
+
+    this.theFormGroup.patchValue({
+      bill: 'AUTO-BILL-' + this.generateRandomString(8) // Genera una cadena aleatoria de 8 caracteres
+    });
+    
     const newFactura = this.theFormGroup.value;
     console.log(JSON.stringify(newFactura));
     this.facturaService.create(newFactura).subscribe(data => {
@@ -119,6 +124,16 @@ export class ManageComponent implements OnInit {
         console.error('Error al actualizar factura:', err);
       }
     });
+  }
+
+  generateRandomString(length: number): string {
+    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    let result = '';
+    for (let i = 0; i < length; i++) {
+      const randomIndex = Math.floor(Math.random() * characters.length);
+      result += characters.charAt(randomIndex);
+    }
+    return result;
   }
 
 }

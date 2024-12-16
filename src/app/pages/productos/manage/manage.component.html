@@ -27,6 +27,9 @@
                         </div>
                         <div class="col-8">
                             <input type="text" class="form-control" [(ngModel)]="producto.nombre" formControlName="nombre">
+                            <div *ngIf="getTheFormGroup.nombre.errors && (getTheFormGroup.nombre.dirty || getTheFormGroup.nombre.touched || trySend)">
+                                <strong *ngIf="getTheFormGroup.nombre.errors.pattern" class="msnError">Caracteres inválidos</strong>
+                            </div>
                         </div>
                     </div>
                     <div class="row">
@@ -35,6 +38,10 @@
                         </div>
                         <div class="col-8">
                             <input type="text" class="form-control" [(ngModel)]="producto.peso" formControlName="peso">
+                            <div *ngIf="getTheFormGroup.peso.errors && (getTheFormGroup.peso.dirty || getTheFormGroup.peso.touched || trySend)">
+                                <strong *ngIf="getTheFormGroup.peso.errors.min" class="msnError">Elija un número entre 0.5 y 10</strong>
+                                <strong *ngIf="getTheFormGroup.peso.errors.max" class="msnError">Elija un número entre 0.5 y 10</strong>
+                            </div>
                         </div>
                     </div>
                     <div class="row">
@@ -43,6 +50,10 @@
                         </div>
                         <div class="col-8">
                             <input type="text" class="form-control" [(ngModel)]="producto.cantidad_disponible" formControlName="cantidad_disponible">
+                            <div *ngIf="getTheFormGroup.cantidad_disponible.errors && (getTheFormGroup.cantidad_disponible.dirty || getTheFormGroup.cantidad_disponible.touched || trySend)">
+                                <strong *ngIf="getTheFormGroup.cantidad_disponible.errors.min" class="msnError">Elija un número entre 1 y 500</strong>
+                                <strong *ngIf="getTheFormGroup.cantidad_disponible.errors.max" class="msnError">Elija un número entre 1 y 500</strong>
+                            </div>
                         </div>
                     </div>
                     <div class="row">
@@ -51,6 +62,10 @@
                         </div>
                         <div class="col-8">
                             <input type="text" class="form-control" [(ngModel)]="producto.precio" formControlName="precio">
+                            <div *ngIf="getTheFormGroup.precio.errors && (getTheFormGroup.precio.dirty || getTheFormGroup.precio.touched || trySend)">
+                                <strong *ngIf="getTheFormGroup.precio.errors.min" class="msnError">Requerido</strong>
+                                <strong *ngIf="getTheFormGroup.precio.errors.max" class="msnError">Debe ser un número</strong>
+                            </div>
                         </div>
                     </div>
                     <div class="row">
@@ -59,6 +74,10 @@
                         </div>
                         <div class="col-8">
                             <input type="text" class="form-control" [(ngModel)]="producto.cliente_id" formControlName="cliente_id">
+                            <div *ngIf="getTheFormGroup.cliente_id.errors && (getTheFormGroup.cliente_id.dirty || getTheFormGroup.cliente_id.touched || trySend)">
+                                <strong *ngIf="getTheFormGroup.cliente_id.errors.required" class="msnError">Requerido</strong>
+                                <strong *ngIf="getTheFormGroup.cliente_id.errors.pattern" class="msnError">Debe ser un número</strong>
+                            </div>
                         </div>
                     </div>
                     <div class="row">
@@ -67,6 +86,10 @@
                         </div>
                         <div class="col-8">
                             <input type="text" class="form-control" [(ngModel)]="producto.lote_id" formControlName="lote_id">
+                            <div *ngIf="getTheFormGroup.lote_id.errors && (getTheFormGroup.lote_id.dirty || getTheFormGroup.lote_id.touched || trySend)">
+                                <strong *ngIf="getTheFormGroup.lote_id.errors.required" class="msnError">Requerido</strong>
+                                <strong *ngIf="getTheFormGroup.lote_id.errors.pattern" class="msnError">Debe ser un número</strong>
+                            </div>
                         </div>
                     </div>
                     <div class="row">

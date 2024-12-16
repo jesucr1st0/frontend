@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Administrador } from 'src/app/models/administrador';
 import { AdministradorService } from 'src/app/services/administrador.service';
@@ -48,7 +48,7 @@ export class ManageComponent implements OnInit {
     this.theFormGroup=this.theFormBuilder.group({
       // primer elemento del vector, valor por defecto
       // lista, serán las reglas
-      usuario_id: [null]
+      usuario_id: [null, [Validators.required, Validators.min(1)]]
     })
   }
   get getTheFormGroup(){

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PersonaNatural } from 'src/app/models/persona-natural';
 import { PersonaNaturalService } from 'src/app/services/persona-natural.service';
@@ -48,8 +48,8 @@ export class ManageComponent implements OnInit {
     this.theFormGroup=this.theFormBuilder.group({
       // primer elemento del vector, valor por defecto
       // lista, serán las reglas
-      cliente_id:[null],
-      usuario_id:[null]
+      cliente_id:[null, [Validators.required, Validators.pattern(/^\d+$/)]],
+      usuario_id:[null, Validators.required]
     })
   }
   get getTheFormGroup(){

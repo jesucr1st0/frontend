@@ -27,6 +27,10 @@
                         </div>
                         <div class="col-8">
                             <input type="text" class="form-control" [(ngModel)]="administrador.usuario_id" formControlName="usuario_id">
+                            <div *ngIf="getTheFormGroup.usuario_id.errors && (getTheFormGroup.usuario_id.dirty || getTheFormGroup.usuario_id.touched || trySend)">
+                                <strong *ngIf="getTheFormGroup.usuario_id.errors.required" class="msnError">Requerido</strong>
+                                <strong *ngIf="getTheFormGroup.usuario_id.errors.min" class="msnError">Valor mínimo debe ser 1</strong>
+                            </div>
                         </div>
                     </div>
                     <div class="row">

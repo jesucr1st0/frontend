@@ -48,12 +48,12 @@ export class ManageComponent implements OnInit {
     this.theFormGroup=this.theFormBuilder.group({
       // primer elemento del vector, valor por defecto
       // lista, serán las reglas
-      nombre:[""],
-      peso:[0],
-      cantidad_disponible:[0],
-      precio:[0],
-      cliente_id:[1, [Validators.required,Validators.min(1),Validators.max(1000000)]],
-      lote_id:[1, [Validators.required,Validators.min(1),Validators.max(1000000)]]
+      nombre:["",  [Validators.pattern(/^[a-zA-Z0-9 ]+$/)]],
+      peso:[0, [Validators.min(0.5), Validators.max(10)]],
+      cantidad_disponible:[0, [Validators.min(1), Validators.max(500)]],
+      precio:[0, [Validators.min(1000), Validators.max(50000)]],
+      cliente_id:[1, [Validators.required, Validators.pattern(/^\d+$/)]],
+      lote_id:[1, [Validators.required, Validators.pattern(/^\d+$/)]]
     })
   }
   get getTheFormGroup(){
