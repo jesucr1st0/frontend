@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
+import { User } from 'src/app/models/user';
+import { SecurityService } from 'src/app/services/security.service';
 
 declare interface RouteInfo {
     path: string;
@@ -11,13 +14,13 @@ declare interface RouteInfo {
                  //2--> puede ver sin importar
 }
 export const ROUTES: RouteInfo[] = [
-    //{ path: '/dashboard', title: 'Dashboard',  icon: 'ni-tv-2 text-primary', class: '', type: 1 },
+    { path: '/dashboard', title: 'Dashboard',  icon: 'ni-tv-2 text-primary', class: '', type: 2 },
     //{ path: '/icons', title: 'Icons',  icon:'ni-planet text-blue', class: '', type:1 },
     { path: '/maps', title: 'Maps',  icon:'ni-pin-3 text-orange', class: '',type:1 },
     { path: '/user-profile', title: 'User profile',  icon:'ni-single-02 text-yellow', class: '', type:1 },
     //{ path: '/tables', title: 'Tables',  icon:'ni-bullet-list-67 text-red', class: '',type:1 },
-    { path: '/login', title: 'Login',  icon:'ni-key-25 text-info', class: '',type:1 },
-    { path: '/register', title: 'Register',  icon:'ni-circle-08 text-pink', class: '',type:1 },
+    { path: '/login', title: 'Login',  icon:'ni-key-25 text-info', class: '',type:0 },
+    { path: '/register', title: 'Register',  icon:'ni-circle-08 text-pink', class: '',type:0 },
     { path: '/conductores/list', title: 'Conductores',  icon:'ni-single-02 text-green', class: '',type:1 },
     { path: '/vehiculos/list', title: 'Vehiculos',  icon:'ni-bus-front-12 text-red', class: '',type:1 },
     { path: '/duenos/list', title: 'Duenos',  icon:'ni-single-02 text-blue', class: '',type:1 },
@@ -50,8 +53,10 @@ export class SidebarComponent implements OnInit {
 
   public menuItems: any[];
   public isCollapsed = true;
+  subscription: Subscription;
+  user: User;
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, private theSecurityService: SecurityService) { }
 
   ngOnInit() {
     this.menuItems = ROUTES.filter(menuItem => menuItem);
