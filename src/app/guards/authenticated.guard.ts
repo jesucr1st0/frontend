@@ -7,16 +7,18 @@ import { SecurityService } from '../services/security.service';
   providedIn: 'root'
 })
 export class AuthenticatedGuard implements CanActivate {
-  constructor(private router: Router, private securityService: SecurityService) { }
+  constructor(private router: Router, private securityService: SecurityService) {
+
+  }
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    if(this.securityService.existSession()){
-      return true;
-    } else {
-      this.router.navigate(['/login']);
-      return false;
-    }
+      if (this.securityService.existSession()) {
+        return true;
+      } else {
+        this.router.navigate(["/login"]);
+        return false;
+      }
   }
   
 }

@@ -7,16 +7,18 @@ import { SecurityService } from '../services/security.service';
   providedIn: 'root'
 })
 export class NoAuthenticatedGuard implements CanActivate {
-  constructor(private router:Router, private securityService:SecurityService) { }
+  constructor(private router: Router, private securityService: SecurityService) {
+
+  }
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-      if(this.securityService.existSession()){
+      if (this.securityService.existSession()) {
+        this.router.navigate(["/dahsboard"]);
+
         return false;
       } else {
-        this.router.navigate(['/login']);
         return true;
       }
   }
-  
 }
