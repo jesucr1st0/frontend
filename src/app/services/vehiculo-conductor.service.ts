@@ -28,4 +28,10 @@ export class VehiculoConductorService {
   view(id: number): Observable<VehiculoConductor> {
     return this.http.get<VehiculoConductor>(`${environment.url_ms_negocio}/conductoresvehiculos/${id}`);
   }
+  findByConductorId(conductorId: number): Observable<any[]> {
+    return this.http.get<any[]>(`${environment.url_ms_negocio}/conductores/${conductorId}/vehiculo-conductor`);
+  }
+  findByVehiculoId(vehiculoId: number): Observable<any[]> {
+    return this.http.get<any[]>(`${environment.url_ms_negocio}/conductoresvehiculos/${vehiculoId}/vehiculo`);
+  }
 }

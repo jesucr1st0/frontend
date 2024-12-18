@@ -1,8 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Conductor } from 'src/app/models/conductor';
+import { Vehiculo } from 'src/app/models/vehiculo';
 import { VehiculoConductor } from 'src/app/models/vehiculo-conductor';
+import { ConductorService } from 'src/app/services/conductor.service';
 import { VehiculoConductorService } from 'src/app/services/vehiculo-conductor.service';
+import { VehiculoService } from 'src/app/services/vehiculo.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -15,19 +19,37 @@ export class ManageComponent implements OnInit {
   mode: number;
   theFormGroup: FormGroup;
   trySend: boolean;
+  vehiculos: Vehiculo[]
+  conductores: Conductor[]
 
   constructor(
     private vehiculoconductorService: VehiculoConductorService,
     private router: Router,
     private activatedRoute: ActivatedRoute,
     private theFormBuilder: FormBuilder,
+    private vehiculoService: VehiculoService,
+    private conductorService: ConductorService
   ) { 
-    this.vehiculoconductor = {id: 0, conductor_id: 0, vehiculo_id: 0};
+    this.vehiculoconductor = {id: 0, conductor_id: null, vehiculo_id: null};
     this.mode = 0;
     this.trySend = false;
+    this.conductores=[]
+    this.vehiculos=[]
+  }
+  vehiculosList(){
+    this.vehiculoService.list().subscribe(data=>{
+      this.vehiculos=data
+    })
+  }
+  conductoresList(){
+    this.conductorService.list().subscribe(data=>{
+      this.conductores=data
+    })
   }
 
   ngOnInit(): void {
+    this.vehiculosList()
+    this.conductoresList()
     this.configFormGroup();// llamar el metodo
     const currentUrl = this.activatedRoute.snapshot.url.join('/');
     if (currentUrl.includes('view')) {
@@ -47,8 +69,8 @@ export class ManageComponent implements OnInit {
     this.theFormGroup=this.theFormBuilder.group({
       // primer elemento del vector, valor por defecto
       // lista, serán las reglas
-      conductor_id: [0, [Validators.required, Validators.minLength(1)]],
-      vehiculo_id: [0, [Validators.required, Validators.minLength(1)]],
+      conductor_id: [null, [Validators.required, Validators.minLength(1)]],
+      vehiculo_id: [null, [Validators.required, Validators.minLength(1)]],
     })
   }
   get getTheFormGroup(){

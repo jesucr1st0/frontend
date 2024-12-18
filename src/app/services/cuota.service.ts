@@ -28,4 +28,7 @@ export class CuotaService {
   view(id: number): Observable<Cuota> {
     return this.http.get<Cuota>(`${environment.url_ms_negocio}/cuotas/${id}`);
   }
+  findByContratoId(contratoId: number): Observable<any[]> {
+    return this.http.get<any[]>(`${environment.url_ms_negocio}/contratos/${contratoId}/cuotas`);
+  }
 }

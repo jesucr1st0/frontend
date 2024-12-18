@@ -55,12 +55,45 @@
                     </div>
                     <div class="row">
                         <div class="col-4">
-                            <label>Factura ID:</label>
+                            <label>Factura:</label>
                         </div>
                         <div class="col-8">
-                            <input type="number" class="form-control" [(ngModel)]="gasto.factura_id" formControlName="factura_id">
+                            <select class="form-control" formControlName="factura_id" [(ngModel)]="gasto.factura_id">
+                                <option *ngFor="let option of facturas" [value]="option.id">Id: {{option.id}} - Numero tarjeta: {{option.card_number}} - Año que expira: {{option.exp_year}} - Mes que expira: {{option.exp_month}}- Nombre de titular:{{option.name}}-Apellido de titular:{{option.last_name}}-Valor:{{option.value}}</option>
+                            </select>
                         </div>
                     </div>
+                    <div class="row">
+                        <div class="col-4">
+                            <label>Conductor:</label>
+                        </div>
+                        <div class="col-8">
+                            <select class="form-control" formControlName="conductor_id" [(ngModel)]="gasto.conductor_id">
+                                <option *ngFor="let option of conductores" [value]="option.id">Id: {{option.id}} - Nombre: {{option.nombre}} - Apellido: {{option.apellido}} - telefono: {{option.telefono}}- correo:{{option.correo}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-4">
+                            <label>Dueño:</label>
+                        </div>
+                        <div class="col-8">
+                            <select class="form-control" formControlName="dueno_id" [(ngModel)]="gasto.dueno_id">
+                                <option *ngFor="let option of duenos" [value]="option.id">Id: {{option.id}} - Nombre: {{option.nombre}} - Apellido: {{option.apellido}} - telefono: {{option.telefono}}- correo:{{option.correo}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-4">
+                            <label>Servicio:</label>
+                        </div>
+                        <div class="col-8">
+                            <select class="form-control" formControlName="servicio_id" [(ngModel)]="gasto.servicio_id">
+                                <option *ngFor="let option of servicios" [value]="option.id">Id: {{option.id}} - Nombre: {{option.nombre}} - Ubicacion: {{option.apellido}} - Telefono: {{option.telefono}}- Calificacion:{{option.Calificacion}}</option>
+                            </select>
+                        </div>
+                    </div>
+                
                     <div class="row">
                         <div class="col-4">
                         </div>

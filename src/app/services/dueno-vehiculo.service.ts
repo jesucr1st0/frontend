@@ -27,4 +27,10 @@ export class DuenoVehiculoService {
   view(id: number): Observable<DuenoVehiculo> {
     return this.http.get<DuenoVehiculo>(`${environment.url_ms_negocio}/duenosvehiculos/${id}`);
   }
+  findByDuenoId(duenoId: number): Observable<any[]> {
+    return this.http.get<any[]>(`${environment.url_ms_negocio}/duenos/${duenoId}/dueno-vehiculo`);
+  }
+  findByVehiculoId(vehiculoId: number): Observable<any[]> {
+    return this.http.get<any[]>(`${environment.url_ms_negocio}/vehiculos/${vehiculoId}/dueno-vehiculo`);
+  }
 }

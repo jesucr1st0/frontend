@@ -1,8 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Contrato } from 'src/app/models/contrato';
 import { Cuota } from 'src/app/models/cuota';
+import { Factura } from 'src/app/models/factura';
 import { CuotaService } from 'src/app/services/cuota.service';
+import { FacturaService } from 'src/app/services/factura.service';
+import { ContratoService } from 'src/app/services/contrato.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -15,19 +19,38 @@ export class ManageComponent implements OnInit {
   mode: number;
   theFormGroup: FormGroup;
   trySend: boolean;
+  facturas: Factura[]
+  contratos: Contrato[]
 
   constructor(
     private cuotaService: CuotaService,
     private router: Router,
     private activatedRoute: ActivatedRoute,
     private theFormBuilder: FormBuilder,
+    private facturaService: FacturaService,
+    private contratoService: ContratoService
   ) { 
-    this.cuota = {id: 0, contrato_id: 0, monto: 0, fechaPago: new(Date), fechaVencimiento: new(Date), estado: '', descripcion: '', tipoPago: '', numeroCuota: 0, factura_id: 0};
+    this.cuota = {id: 0, contrato_id: null, monto: 0, fechaPago: new(Date), fechaVencimiento: new(Date), estado: '', descripcion: '', tipoPago: '', numeroCuota: 0, factura_id: null};
     this.mode = 0;
     this.trySend = false;
+    this.facturas=[]
+    this.contratos=[]
+  }
+  contratosList(){
+    this.contratoService.list().subscribe(data=>{
+      this.contratos=data
+
+    })
+  }
+  facturasList(){
+    this.facturaService.list().subscribe(data=>{
+      this.facturas=data
+    })
   }
 
   ngOnInit(): void {
+    this.facturasList()
+    this.contratosList()
     this.configFormGroup();// llamar el metodo
     const currentUrl = this.activatedRoute.snapshot.url.join('/');
     if (currentUrl.includes('view')) {
@@ -47,7 +70,7 @@ export class ManageComponent implements OnInit {
     this.theFormGroup=this.theFormBuilder.group({
       // primer elemento del vector, valor por defecto
       // lista, serán las reglas
-      contrato_id: [0, [Validators.required, Validators.minLength(1)]],
+      contrato_id: [null, [Validators.required, Validators.minLength(1)]],
       monto: [0, [Validators.required, Validators.minLength(1)]],
       fechaPago: [new(Date), [Validators.required, Validators.minLength(1)]],
       fechaVencimiento: [new(Date), [Validators.required, Validators.minLength(1)]],
@@ -55,7 +78,7 @@ export class ManageComponent implements OnInit {
       descripcion: ['', [Validators.required, Validators.minLength(1)]],
       tipoPago: ['', [Validators.required, Validators.minLength(1)]],
       numeroCuota: [0, [Validators.required, Validators.minLength(1)]],
-      factura_id: [0, [Validators.required, Validators.minLength(1)]]
+      factura_id: [null, [Validators.required, Validators.minLength(1)]]
     })
   }
   get getTheFormGroup(){

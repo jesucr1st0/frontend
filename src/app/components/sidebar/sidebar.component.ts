@@ -3,7 +3,6 @@ import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { User } from 'src/app/models/user';
 import { SecurityService } from 'src/app/services/security.service';
-
 declare interface RouteInfo {
     path: string;
     title: string;
@@ -56,7 +55,7 @@ export class SidebarComponent implements OnInit {
   subscription: Subscription;
   user: User;
 
-  constructor(private router: Router, private theSecurityService: SecurityService) { }
+  constructor(private router: Router, private theSecurityService: SecurityService, ) { }
 
   ngOnInit() {
     this.menuItems = ROUTES.filter(menuItem => menuItem);

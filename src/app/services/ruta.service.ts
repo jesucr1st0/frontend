@@ -28,4 +28,10 @@ export class RutaService {
   view(id: number): Observable<Ruta> {
     return this.http.get<Ruta>(`${environment.url_ms_negocio}/rutas/${id}`);
   }
+  findByContratoId(conductorId: number): Observable<any[]> {
+    return this.http.get<any[]>(`${environment.url_ms_negocio}/contratos/${conductorId}/rutas`);
+  }
+  findByVehiculoId(vehiculoId: number): Observable<any[]> {
+    return this.http.get<any[]>(`${environment.url_ms_negocio}/rutas/${vehiculoId}/vehiculo`);
+  }
 }

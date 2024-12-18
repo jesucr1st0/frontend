@@ -1,8 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Contrato } from 'src/app/models/contrato';
+import { Orden } from 'src/app/models/orden';
 import { Ruta } from 'src/app/models/ruta';
+import { Vehiculo } from 'src/app/models/vehiculo';
+import { ContratoService } from 'src/app/services/contrato.service';
+import { OrdenService } from 'src/app/services/orden.service';
 import { RutaService } from 'src/app/services/ruta.service';
+import { VehiculoService } from 'src/app/services/vehiculo.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -15,19 +21,39 @@ export class ManageComponent implements OnInit {
   mode: number;
   theFormGroup: FormGroup;
   trySend: boolean;
+  contratos: Contrato[];
+  vehiculos: Vehiculo[]
+
 
   constructor(
     private rutaService: RutaService,
     private router: Router,
     private activatedRoute: ActivatedRoute,
     private theFormBuilder: FormBuilder,
+    private contratoService: ContratoService,
+    private vehiculoService: VehiculoService,
+    private ordenService: OrdenService
   ) { 
-    this.ruta = {id: 0, contrato_id: 0, vehiculo_id: 0, fecha_asignacion: new(Date), origen: '', destino: ''};
+    this.ruta = {id: 0, contrato_id: null, vehiculo_id: null, fecha_asignacion: new(Date), origen: '', destino: ''};
     this.mode = 0;
     this.trySend = false;
+    this.contratos=[]
+    this.vehiculos=[]
+  }
+  contratosList(){
+    this.contratoService.list().subscribe(data=>{
+      this.contratos= data
+    })
+  }
+  vehiculosList(){
+    this.vehiculoService.list().subscribe(data=>{
+      this.vehiculos=data
+    })
   }
 
   ngOnInit(): void {
+    this.vehiculosList()
+    this.contratosList()
     this.configFormGroup();// llamar el metodo
     const currentUrl = this.activatedRoute.snapshot.url.join('/');
     if (currentUrl.includes('view')) {
@@ -47,8 +73,8 @@ export class ManageComponent implements OnInit {
     this.theFormGroup=this.theFormBuilder.group({
       // primer elemento del vector, valor por defecto
       // lista, serán las reglas
-      contrato_id: [0, [Validators.required, Validators.minLength(1)]],
-      vehiculo_id: [0, [Validators.required, Validators.minLength(1)]],
+      contrato_id: [null, [Validators.required, Validators.minLength(1)]],
+      vehiculo_id: [null, [Validators.required, Validators.minLength(1)]],
       fecha_asignacion: [new(Date), [Validators.required, Validators.minLength(1)]],
       origen: ['', [Validators.required, Validators.minLength(1)]],
       destino: ['', [Validators.required, Validators.minLength(1)]],

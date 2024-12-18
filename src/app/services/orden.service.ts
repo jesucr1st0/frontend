@@ -36,4 +36,7 @@ export class OrdenService {
   getOrdenesByDireccionId(direccionId: number): Observable<any> {
     return this.http.get(`${environment.url_ms_negocio}/direcciones/${direccionId}/ordenes`);
   }
+  findByRutaId(rutaId: number): Observable<any[]> {
+    return this.http.get<any[]>(`${environment.url_ms_negocio}/ordenes/${rutaId}/ruta`);
+  }
 }

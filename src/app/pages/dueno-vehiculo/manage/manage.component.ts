@@ -1,8 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Dueno } from 'src/app/models/dueno';
 import { DuenoVehiculo } from 'src/app/models/dueno-vehiculo';
+import { Vehiculo } from 'src/app/models/vehiculo';
 import { DuenoVehiculoService } from 'src/app/services/dueno-vehiculo.service';
+import { DuenoService } from 'src/app/services/dueno.service';
+import { VehiculoService } from 'src/app/services/vehiculo.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -15,19 +19,37 @@ export class ManageComponent implements OnInit {
   mode: number;
   theFormGroup: FormGroup;
   trySend: boolean;
+  duenos: Dueno[]
+  vehiculos: Vehiculo[]
 
   constructor(
     private duenoVehiculoService: DuenoVehiculoService,
     private router: Router,
     private activatedRoute: ActivatedRoute,
     private theFormBuilder: FormBuilder,
+    private vehiculoService: VehiculoService,
+    private duenoService: DuenoService
   ) { 
-    this.duenoVehiculo = {id: 0, dueno_id: 0, vehiculo_id: 0};
+    this.duenoVehiculo = {id: 0, dueno_id: null, vehiculo_id: null};
     this.mode = 0;
     this.trySend = false;
+    this.duenos=[]
+    this.vehiculos=[]
+  }
+  vehiculosList(){
+    this.vehiculoService.list().subscribe(data=>{
+      this.vehiculos=data
+    })
+  }
+  duenosList(){
+    this.duenoService.list().subscribe(data=>{
+      this.duenos=data
+    })
   }
 
   ngOnInit(): void {
+    this.vehiculosList()
+    this.duenosList()
     this.configFormGroup();// llamar el metodo
     const currentUrl = this.activatedRoute.snapshot.url.join('/');
     if (currentUrl.includes('view')) {
@@ -47,8 +69,8 @@ export class ManageComponent implements OnInit {
     this.theFormGroup=this.theFormBuilder.group({
       // primer elemento del vector, valor por defecto
       // lista, serán las reglas
-      dueno_id: [0, [Validators.required, Validators.minLength(1)]],
-      vehiculo_id: [0, [Validators.required, Validators.minLength(1)]],
+      dueno_id: [null, [Validators.required, Validators.minLength(1)]],
+      vehiculo_id: [null, [Validators.required, Validators.minLength(1)]],
     })
   }
   get getTheFormGroup(){

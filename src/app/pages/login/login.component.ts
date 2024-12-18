@@ -1,7 +1,9 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
+import { env } from 'process';
 import { User } from 'src/app/models/user';
 import { SecurityService } from 'src/app/services/security.service';
+import { environment } from 'src/environments/environment';
 import Swal from 'sweetalert2';
 @Component({
   selector: 'app-login',
@@ -29,5 +31,13 @@ export class LoginComponent implements OnInit, OnDestroy {
       }
     })
   }
+  google() {
+    window.location.href = `${environment.url_ms_security}/login/oauth2/code/google`;
+  }
+  
+  github() {
+    window.location.href = `${environment.url_ms_security}/login/oauth2/code/github`;
+  }
+  
 
 }

@@ -27,4 +27,13 @@ export class GastoService {
   view(id: number): Observable<Gasto> {
     return this.http.get<Gasto>(`${environment.url_ms_negocio}/gastos/${id}`);
   }
+  findByConductorId(conductorId: number): Observable<any> {
+    return this.http.get(`${environment.url_ms_negocio}/conductores/${conductorId}/gastos`);
+  }
+  findByDuenoId(duenoId: number): Observable<any> {
+    return this.http.get(`${environment.url_ms_negocio}/duenos/${duenoId}/gastos`);
+  }
+  findByServicioId(vehiculoId: number): Observable<any> {
+    return this.http.get(`${environment.url_ms_negocio}/servicios/${vehiculoId}/gastos`);
+  }
 }

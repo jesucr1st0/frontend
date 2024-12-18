@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Administrador } from 'src/app/models/administrador';
 import { Servicio } from 'src/app/models/servicio';
+import { AdministradorService } from 'src/app/services/administrador.service';
 import { ServicioService } from 'src/app/services/servicio.service';
 import Swal from 'sweetalert2';
 
@@ -15,19 +17,28 @@ export class ManageComponent implements OnInit {
   mode: number;
   theFormGroup: FormGroup;
   trySend: boolean;
+  admins: Administrador[]
 
   constructor(
     private servicioService: ServicioService,
     private router: Router,
     private activatedRoute: ActivatedRoute,
     private theFormBuilder: FormBuilder,
+    private adminService: AdministradorService
   ) { 
-    this.servicio = {id: 0, nombre: '', direccion: '', telefono: '' ,horarioApertura: '', horarioCierre: '', calificacion: 0, administrador_id: 0};
+    this.servicio = {id: 0, nombre: '', direccion: '', telefono: '' ,horarioApertura: '', horarioCierre: '', calificacion: 0, administrador_id: null};
     this.mode = 0;
     this.trySend = false;
+    this.admins=[]
+  }
+  adminList(){
+    this.adminService.list().subscribe(data=>{
+      this.admins=data
+    })
   }
 
   ngOnInit(): void {
+    this.adminList()
     this.configFormGroup();// llamar el metodo
     const currentUrl = this.activatedRoute.snapshot.url.join('/');
     if (currentUrl.includes('view')) {
@@ -53,7 +64,7 @@ export class ManageComponent implements OnInit {
       horarioApertura: ['', [Validators.required, Validators.minLength(2)]],
       horarioCierre: ['', [Validators.required, Validators.minLength(2)]],
       calificacion: [0, [Validators.required, Validators.minLength(1)]],
-      administrador_id: [0, [Validators.required, Validators.minLength(1)]],
+      administrador_id: [null, [Validators.required, Validators.minLength(1)]],
 
     })
   }

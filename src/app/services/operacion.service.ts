@@ -32,4 +32,7 @@ export class OperacionService {
   view(id: number): Observable<Operacion> {
     return this.http.get<Operacion>(`${environment.url_ms_negocio}/operaciones/${id}`);
   }
+  findByVehiculoId(vehiculoId: number): Observable<any[]> {
+    return this.http.get<any[]>(`${environment.url_ms_negocio}/vehiculos/${vehiculoId}/operaciones`);
+  }
 }

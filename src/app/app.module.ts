@@ -15,6 +15,8 @@ import { ComponentsModule } from './components/components.module';
 import { SecurityInterceptor } from './interceptors/security.interceptor';
 import { AuthenticatedGuard } from './guards/authenticated.guard';
 import { NoAuthenticatedGuard } from './guards/no-authenticated.guard';
+import { ManageComponent } from './pages/conductor-gasto/manage/manage.component';
+
 
 
 @NgModule({
@@ -30,13 +32,14 @@ import { NoAuthenticatedGuard } from './guards/no-authenticated.guard';
   declarations: [
     AppComponent,
     AdminLayoutComponent,
-    AuthLayoutComponent
+    AuthLayoutComponent,
   ],
   providers: [
     {
       provide: HTTP_INTERCEPTORS,
       useClass: SecurityInterceptor,
       multi: true
+      
     },
     //AuthenticatedGuard,
     //NoAuthenticatedGuard

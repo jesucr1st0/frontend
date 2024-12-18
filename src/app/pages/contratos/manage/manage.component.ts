@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Cliente } from 'src/app/models/cliente';
 import { Contrato } from 'src/app/models/contrato';
+import { ClienteService } from 'src/app/services/cliente.service';
 import { ContratoService } from 'src/app/services/contrato.service';
 import Swal from 'sweetalert2';
 
@@ -15,16 +17,25 @@ export class ManageComponent implements OnInit {
   mode: number;
   theFormGroup: FormGroup;
   trySend: boolean;
+  clientes: Cliente[]
 
   constructor(
     private contratoService: ContratoService,
     private router: Router,
     private activatedRoute: ActivatedRoute,
     private theFormBuilder: FormBuilder,
+    private clienteService: ClienteService
   ) { 
-    this.contrato = {id: 0, cliente_id: 0, fecha_inicio: new(Date), fecha_fin: new(Date), tipo_contrato: '', monto: 0, estado: '', descripcion: '', terminos_y_condiciones: ''};
+    this.contrato = {id: 0, cliente_id: null, fecha_inicio: new(Date), fecha_fin: new(Date), tipo_contrato: '', monto: 0, estado: '', descripcion: '', terminos_y_condiciones: ''};
     this.mode = 0;
     this.trySend = false;
+    this.clientes=[]
+  }
+  clientesList(){
+    this.clienteService.list().subscribe(data=>{
+      this.clientes=data
+    })
+
   }
 
   ngOnInit(): void {
@@ -47,7 +58,7 @@ export class ManageComponent implements OnInit {
     this.theFormGroup=this.theFormBuilder.group({
       // primer elemento del vector, valor por defecto
       // lista, serán las reglas
-      cliente_id: [0, [Validators.required, Validators.minLength(1)]],
+      cliente_id: [null, [Validators.required, Validators.minLength(1)]],
       fecha_inicio: [new(Date), [Validators.required, Validators.minLength(2)]],
       fecha_fin: [new(Date), [Validators.required, Validators.minLength(2)]],
       tipo_contrato: ['', [Validators.required, Validators.minLength(1)]],

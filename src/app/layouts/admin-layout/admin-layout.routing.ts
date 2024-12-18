@@ -210,4 +210,48 @@ export const AdminLayoutRoutes: Routes = [
         path: 'direcciones/:id/ordenes', // Ruta dinámica con el ID del cliente
         loadChildren: () => import('src/app/pages/orden-direccion/orden-direccion.module').then(m => m.OrdenDireccionModule)
     },
+    {
+        path: 'vehiculos/:id/rutas', // Ruta dinámica con el ID del vehículo
+        loadChildren: () => import('src/app/pages/vehiculo-ruta/vehiculo-ruta.module').then(m => m.VehiculoRutaModule)
+    },
+    {
+        path: 'vehiculos/:id/operaciones', // Ruta dinámica con el ID del vehículo
+        loadChildren: () => import('src/app/pages/vehiculo-operacion/vehiculo-operacion.module').then(m => m.VehiculoOperacionModule)
+    },
+    {
+        path: 'vehiculos/:id/dueno-vehiculo', // Ruta dinámica con el ID del vehículo
+        loadChildren: () => import('src/app/pages/vehiculo-dueno-vehiculo/vehiculo-dueno-vehiculo.module').then(m => m.VehiculoDuenoVehiculoModule)
+    },
+    {
+        path: 'vehiculos/:id/vehiculo-conductor', // Ruta dinámica con el ID del vehículo
+        loadChildren: () => import('src/app/pages/vehiculo-vehiculo-conductor/vehiculo-vehiculo-conductor.module').then(m => m.VehiculoVehiculoConductorModule)
+    },
+    {
+        path:'contratos/:id/cuotas',
+        loadChildren: () => import('src/app/pages/contrato-cuota/contrato-cuota.module').then(m => m.ContratoCuotaModule)
+    },
+    {
+        path:'contratos/:id/rutas',
+        loadChildren: () => import('src/app/pages/contrato-ruta/contrato-ruta.module').then(m => m.ContratoRutaModule)
+    },
+    {
+        path:'duenos/:id/dueno-vehiculo',
+        loadChildren: () => import('src/app/pages/dueno-dueno-vehiculo/dueno-dueno-vehiculo.module').then(m => m.DuenoDuenoVehiculoModule)
+    },
+    {
+        path:'conductores/:id/vehiculo-conductor',
+        loadChildren: () => import('src/app/pages/conductor-vehiculo-conductor/conductor-vehiculo-conductor.module').then(m => m.ConductorVehiculoConductorModule)
+    },
+    {
+        path:'conductores/:id/gastos',
+        loadChildren: () => import('src/app/pages/conductor-gasto/conductor-gasto.module').then(m => m.ConductorGastoModule)
+    },
+    {
+        path:'servicios/:id/gastos',
+        loadChildren: () => import('src/app/pages/servicio-gasto/servicio-gasto.module').then(m => m.ServicioGastoModule)
+    },
+    {
+        path:'duenos/:id/gastos',
+        loadChildren: () => import('src/app/pages/dueno-gasto/dueno-gasto.module').then(m => m.DuenoGastoModule)
+    }
 ];

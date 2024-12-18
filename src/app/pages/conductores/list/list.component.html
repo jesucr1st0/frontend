@@ -47,6 +47,12 @@
                     >
                       Eliminar
                     </button>
+                    <button class="btn btn-primary" [routerLink]="['/conductores', actual.id, 'gastos']">
+                      Ver Gastos
+                    </button>
+                    <button class="btn btn-primary" [routerLink]="['/conductores', actual.id, 'vehiculo-conductor']">
+                      Ver Vehiculos
+                    </button>
                   </td>
                 </tr>
               </tbody>

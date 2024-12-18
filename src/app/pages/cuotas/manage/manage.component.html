@@ -23,10 +23,12 @@
                     </div>
                     <div class="row">
                         <div class="col-4">
-                            <label>Contrato ID:</label>
+                            <label>Contrato:</label>
                         </div>
                         <div class="col-8">
-                            <input type="number" class="form-control" [(ngModel)]="cuota.contrato_id" formControlName="contrato_id">
+                            <select class="form-control" formControlName="contrato_id" [(ngModel)]="cuota.contrato_id">
+                                <option *ngFor="let option of contratos" [value]="option.id">Id: {{option.id}} - Fecha de inicio: {{option.fecha_inicio}} - Fecha final: {{option.fecha_fin}} - tipo: {{option.tipo_contrato}}- monto:{{option.monto}}</option>
+                            </select>
                         </div>
                     </div>
                     <div class="row">
@@ -87,10 +89,12 @@
                     </div>
                     <div class="row">
                         <div class="col-4">
-                            <label>Factura ID:</label>
+                            <label>Factura:</label>
                         </div>
                         <div class="col-8">
-                            <input type="number" class="form-control" [(ngModel)]="cuota.factura_id" formControlName="factura_id">
+                            <select class="form-control" formControlName="factura_id" [(ngModel)]="cuota.factura_id">
+                                <option *ngFor="let option of facturas" [value]="option.id">Id: {{option.id}} - Numero tarjeta: {{option.card_number}} - Año que expira: {{option.exp_year}} - Mes que expira: {{option.exp_month}}- Nombre de titular:{{option.name}}-Apellido de titular:{{option.last_name}}-Valor:{{option.value}}</option>
+                            </select>
                         </div>
                     </div>
                     <div class="row">
