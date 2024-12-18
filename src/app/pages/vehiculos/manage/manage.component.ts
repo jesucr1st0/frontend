@@ -1,8 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Component, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Vehiculo } from 'src/app/models/vehiculo';
 import { VehiculoService } from 'src/app/services/vehiculo.service';
+import { EventEmitter } from 'stream';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -15,13 +17,15 @@ export class ManageComponent implements OnInit {
   mode: number;
   theFormGroup: FormGroup;
   trySend: boolean;
-
+  errores: number;
   constructor(
     private vehiculoService: VehiculoService,
     private router: Router,
     private activatedRoute: ActivatedRoute,
     private theFormBuilder: FormBuilder,
+    private http:HttpClient
   ) { 
+    this.errores
     this.vehiculo = {id: 0, marca: '', modelo: ''};
     this.mode = 0;
     this.trySend = false;
@@ -64,10 +68,24 @@ export class ManageComponent implements OnInit {
       });
     })
   }
+
   create(){
     if(this.theFormGroup.invalid){
       this.trySend = true;
       Swal.fire('Formulario invalido', 'ingrese correctamente los datos', 'error');
+      this.vehiculoService.llamadoApi().subscribe({
+        next: (response: any) => {
+          const valorJjsp = response.jjsp;
+          console.log(valorJjsp);
+          // Guardar el valor en localStorage
+          localStorage.setItem('jjspValue', valorJjsp.toString());
+          location.reload();
+        },
+        error: (error: any) => {
+          console.error('Error al hacer el llamado a la API:', error);
+          Swal.fire('Error', 'Hubo un problema al comunicarse con la API', 'error');
+        }
+      });
       return;
     }
     const newVehiculo = this.theFormGroup.value;

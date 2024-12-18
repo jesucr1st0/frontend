@@ -37,7 +37,7 @@
                         </div>
                         <div class="col-8">
                             <select class="form-control" formControlName="vehiculo_id" [(ngModel)]="vehiculoconductor.vehiculo_id">
-                                <option *ngFor="let option of conductores" [value]="option.id">Id: {{option.id}} - Marca: {{option.marca}} - Modelo: {{option.modelo}}</option>
+                                <option *ngFor="let option of vehiculos" [value]="option.id">Id: {{option.id}} - Marca: {{option.marca}} - Modelo: {{option.modelo}}</option>
                             </select>
                         </div>
                     </div>

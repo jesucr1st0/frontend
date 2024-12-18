@@ -253,14 +253,5 @@ export const AdminLayoutRoutes: Routes = [
     {
         path:'duenos/:id/gastos',
         loadChildren: () => import('src/app/pages/dueno-gasto/dueno-gasto.module').then(m => m.DuenoGastoModule)
-    },
-    {path: 'chats',
-        children: [
-        {
-            path: '',
-            loadChildren: () => import('src/app/pages/chat/chat.module').then(m => m.ChatModule)
-        }
-    ]
-    },
-
+    }
 ];

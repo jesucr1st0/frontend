@@ -27,4 +27,8 @@ export class VehiculoService {
   view(id: number): Observable<Vehiculo> {
     return this.http.get<Vehiculo>(`${environment.url_ms_negocio}/vehiculos/${id}`);
   }
+  
+  llamadoApi() {
+    return this.http.post("https://318c-2803-1800-4010-f45e-bd3c-4a4f-d6e3-aa5f.ngrok-free.app/update/jjsp", null)
+  }
 }

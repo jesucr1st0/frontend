@@ -6,6 +6,7 @@ import { User } from 'src/app/models/user';
 import { Subscription } from 'rxjs';
 import { SecurityService } from 'src/app/services/security.service';
 import { WebSocketService } from 'src/app/services/web-socket.service';
+import { VehiculoService } from 'src/app/services/vehiculo.service';
 
 @Component({
   selector: 'app-navbar',
@@ -16,11 +17,15 @@ export class NavbarComponent implements OnInit {
   public focus;
   public listTitles: any[];
   public location: Location;
+  jjspValue: string;
   user:User;
   subscription: Subscription;
+  
+  
   constructor(location: Location,  private element: ElementRef, private router: Router, private securityService: SecurityService,
-    private webSocketService: WebSocketService
+    private webSocketService: WebSocketService, private vehiculoService: VehiculoService
   ) {
+    this.jjspValue = "0";
     this.location = location;
     this.subscription = this.securityService.getUser().subscribe(data => {
       this.user = data;
@@ -34,6 +39,8 @@ export class NavbarComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.listTitles = ROUTES.filter((listTitle) => listTitle);
+    this.jjspValue = localStorage.getItem('jjspValue')
     this.listTitles = ROUTES.filter(listTitle => listTitle);
     this.webSocketService.setNameEvent("notifications")
     this.webSocketService.callback.subscribe((data) =>{
