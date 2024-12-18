@@ -27,4 +27,7 @@ export class ContratoService {
   view(id: number): Observable<Contrato> {
     return this.http.get<Contrato>(`${environment.url_ms_negocio}/contratos/${id}`);
   }
+  getContratosByClienteId(clienteId: number): Observable<any> {
+    return this.http.get(`${environment.url_ms_negocio}/clientes/${clienteId}/contratos`);
+  }
 }

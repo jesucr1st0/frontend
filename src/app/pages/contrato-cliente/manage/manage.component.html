@@ -1,0 +1,46 @@
+<div class="header bg-gradient-danger pb-8 pt-5 pt-md-8"></div>
+<!-- Page content -->
+<div class="container-fluid mt--7">
+  <!-- Table -->
+  <div class="row">
+    <div class="col">
+      <div class="card shadow">
+        <div class="card-header border-0">
+          <h3 class="mb-0">Contratos del Cliente {{ clienteId }}</h3>
+        </div>
+        <div class="card-body">
+          <div class="table-responsive">
+            <table class="table align-items-center table-flush">
+              <thead class="thead-light">
+                <tr>
+                  <th scope="col-1">ID</th>
+                  <th scope="col-2">Fecha de inicio</th>
+                  <th scope="col-3">Fecha de fin</th>
+                  <th scope="col-4">Tipo de contrato</th>
+                  <th scope="col-5">Monto</th>
+                  <th scope="col-6">Estado</th>
+                  <th scope="col-6">Descripción</th>
+                  <th scope="col-6">Términos y condiciones</th>
+                  <th scope="col-6">ID de cliente</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let actual of contratos">
+                  <td>{{ actual.id }}</td>
+                  <td>{{ actual.fecha_inicio }}</td>
+                  <td>{{ actual.fecha_fin }}</td>
+                  <td>{{ actual.tipo_contrato }}</td>
+                  <td>{{ actual.monto }}</td>
+                  <td>{{ actual.estado }}</td>
+                  <td>{{ actual.descripcion }}</td>
+                  <td>{{ actual.terminos_y_condiciones }}</td>
+                  <td>{{ actual.cliente_id }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

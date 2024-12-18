@@ -32,4 +32,12 @@ export class ProductoService {
   view(id: number): Observable<Producto> {
     return this.http.get<Producto>(`${environment.url_ms_negocio}/productos/${id}`);
   }
+
+  getProductosByClienteId(clienteId: number): Observable<any> {
+    return this.http.get(`${environment.url_ms_negocio}/clientes/${clienteId}/productos`);
+  }
+
+  getProductosByLoteId(clienteId: number): Observable<any> {
+    return this.http.get(`${environment.url_ms_negocio}/lotes/${clienteId}/productos`);
+  }
 }

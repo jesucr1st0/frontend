@@ -193,5 +193,21 @@ export const AdminLayoutRoutes: Routes = [
             loadChildren: () => import('src/app/pages/administradores/administradores.module').then(m => m.AdministradoresModule)
         }
     ]
-    }
+    },
+    { 
+        path: 'clientes/:id/productos', // Ruta dinámica con el ID del cliente
+        loadChildren: () => import('src/app/pages/producto-cliente/producto-cliente.module').then(m => m.ProductoClienteModule)
+    },
+    { 
+        path: 'clientes/:id/contratos', // Ruta dinámica con el ID del cliente
+        loadChildren: () => import('src/app/pages/contrato-cliente/contrato-cliente.module').then(m => m.ContratoClienteModule)
+    },
+    { 
+        path: 'lotes/:id/productos', // Ruta dinámica con el ID del cliente
+        loadChildren: () => import('src/app/pages/producto-lote/producto-lote.module').then(m => m.ProductoLoteModule)
+    },
+    { 
+        path: 'direcciones/:id/ordenes', // Ruta dinámica con el ID del cliente
+        loadChildren: () => import('src/app/pages/orden-direccion/orden-direccion.module').then(m => m.OrdenDireccionModule)
+    },
 ];

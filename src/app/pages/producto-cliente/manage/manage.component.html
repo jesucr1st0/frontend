@@ -1,0 +1,38 @@
+<div class="header bg-gradient-danger pb-8 pt-5 pt-md-8"></div>
+<!-- Page content -->
+<div class="container-fluid mt--7">
+  <!-- Table -->
+  <div class="row">
+    <div class="col">
+      <div class="card shadow">
+        <div class="card-header border-0">
+          <h3 class="mb-0">Productos del Cliente {{ clienteId }}</h3>
+        </div>
+        <div class="card-body">
+          <div class="table-responsive">
+            <table class="table align-items-center table-flush">
+              <thead class="thead-light">
+                <tr>
+                  <th scope="col-1">ID</th>
+                  <th scope="col-2">Nombre</th>
+                  <th scope="col-3">Precio</th>
+                  <th scope="col-5">Lote ID</th>
+                  <th scope="col-6">Cliente ID</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let actual of productos">
+                  <td>{{ actual.id }}</td>
+                  <td>{{ actual.nombre }}</td>
+                  <td>{{ actual.precio }}</td>
+                  <td>{{ actual.lote_id }}</td>
+                  <td>{{ actual.cliente_id }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
