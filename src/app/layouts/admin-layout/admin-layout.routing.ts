@@ -210,4 +210,12 @@ export const AdminLayoutRoutes: Routes = [
         path: 'direcciones/:id/ordenes', // Ruta dinámica con el ID del cliente
         loadChildren: () => import('src/app/pages/orden-direccion/orden-direccion.module').then(m => m.OrdenDireccionModule)
     },
+    {path: 'chats',
+        children: [
+        {
+            path: '',
+            loadChildren: () => import('src/app/pages/chat/chat.module').then(m => m.ChatModule)
+        }
+    ]
+    },
 ];
