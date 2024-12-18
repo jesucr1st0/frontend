@@ -210,6 +210,7 @@ export const AdminLayoutRoutes: Routes = [
         path: 'direcciones/:id/ordenes', // Ruta dinámica con el ID del cliente
         loadChildren: () => import('src/app/pages/orden-direccion/orden-direccion.module').then(m => m.OrdenDireccionModule)
     },
+<<<<<<< HEAD
     {
         path: 'vehiculos/:id/rutas', // Ruta dinámica con el ID del vehículo
         loadChildren: () => import('src/app/pages/vehiculo-ruta/vehiculo-ruta.module').then(m => m.VehiculoRutaModule)
@@ -253,5 +254,14 @@ export const AdminLayoutRoutes: Routes = [
     {
         path:'duenos/:id/gastos',
         loadChildren: () => import('src/app/pages/dueno-gasto/dueno-gasto.module').then(m => m.DuenoGastoModule)
-    }
+    },
+    {path: 'chats',
+        children: [
+        {
+            path: '',
+            loadChildren: () => import('src/app/pages/chat/chat.module').then(m => m.ChatModule)
+        }
+    ]
+    },
+
 ];
