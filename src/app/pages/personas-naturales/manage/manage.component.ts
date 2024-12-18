@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Cliente } from 'src/app/models/cliente';
 import { PersonaNatural } from 'src/app/models/persona-natural';
+import { ClienteService } from 'src/app/services/cliente.service';
 import { PersonaNaturalService } from 'src/app/services/persona-natural.service';
 import Swal from 'sweetalert2';
 
@@ -16,19 +18,29 @@ export class ManageComponent implements OnInit {
   mode: number;
   theFormGroup: FormGroup;
   trySend: boolean;
+  clientes: Cliente[];
 
   constructor(
     private personaNaturalService: PersonaNaturalService,
     private router: Router,
     private activatedRoute: ActivatedRoute,
     private theFormBuilder: FormBuilder,
+    private clienteService: ClienteService
   ) { 
-    this.persona_natural = {};
+    this.clientes = [];
+    this.persona_natural = {cliente_id: null};
     this.mode = 0;
     this.trySend = false;
   }
 
+  listClientes() {
+    this.clienteService.list().subscribe(data =>{
+      this.clientes = data;
+    })
+  }
+
   ngOnInit(): void {
+    this.listClientes()
     this.configFormGroup();// llamar el metodo
     const currentUrl = this.activatedRoute.snapshot.url.join('/');
     if (currentUrl.includes('view')) {

@@ -70,26 +70,22 @@
                     </div>
                     <div class="row">
                         <div class="col-4">
-                            <label>ID de cliente:</label>
+                            Cliente:
                         </div>
                         <div class="col-8">
-                            <input type="text" class="form-control" [(ngModel)]="producto.cliente_id" formControlName="cliente_id">
-                            <div *ngIf="getTheFormGroup.cliente_id.errors && (getTheFormGroup.cliente_id.dirty || getTheFormGroup.cliente_id.touched || trySend)">
-                                <strong *ngIf="getTheFormGroup.cliente_id.errors.required" class="msnError">Requerido</strong>
-                                <strong *ngIf="getTheFormGroup.cliente_id.errors.pattern" class="msnError">Debe ser un número</strong>
-                            </div>
+                            <select class="form-control" formControlName="cliente_id" [(ngModel)]="producto.cliente_id">
+                                <option *ngFor="let option of clientes" [value]="option.id">Id: {{option.id}} - Nombre: {{option.nombre}} - Teléfono: {{option.telefono}}</option>
+                            </select>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-4">
-                            <label>ID de lote:</label>
+                            Lote:
                         </div>
                         <div class="col-8">
-                            <input type="text" class="form-control" [(ngModel)]="producto.lote_id" formControlName="lote_id">
-                            <div *ngIf="getTheFormGroup.lote_id.errors && (getTheFormGroup.lote_id.dirty || getTheFormGroup.lote_id.touched || trySend)">
-                                <strong *ngIf="getTheFormGroup.lote_id.errors.required" class="msnError">Requerido</strong>
-                                <strong *ngIf="getTheFormGroup.lote_id.errors.pattern" class="msnError">Debe ser un número</strong>
-                            </div>
+                            <select class="form-control" formControlName="lote_id" [(ngModel)]="producto.lote_id">
+                                <option *ngFor="let option of lotes" [value]="option.id">Id: {{option.id}} - Peso total: {{option.peso_total}} - Cantidad: {{option.cantidad}} - Estado: {{option.estado}}</option>
+                            </select>
                         </div>
                     </div>
                     <div class="row">

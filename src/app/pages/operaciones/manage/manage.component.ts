@@ -2,7 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Operacion } from 'src/app/models/operacion';
+import { Vehiculo } from 'src/app/models/vehiculo';
 import { OperacionService } from 'src/app/services/operacion.service';
+import { VehiculoService } from 'src/app/services/vehiculo.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -16,19 +18,29 @@ export class ManageComponent implements OnInit {
   mode: number;
   theFormGroup: FormGroup;
   trySend: boolean;
+  vehiculos: Vehiculo[];
 
   constructor(
     private operacionService: OperacionService,
     private router: Router,
     private activatedRoute: ActivatedRoute,
     private theFormBuilder: FormBuilder,
+    private vehiculoService: VehiculoService
   ) { 
-    this.operacion = {};
+    this.vehiculos = [];
+    this.operacion = {vehiculo_id: null};
     this.mode = 0;
     this.trySend = false;
   }
 
+  vehiculosList() {
+    this.vehiculoService.list().subscribe(data => {
+      this.vehiculos = data;
+    })
+  }
+
   ngOnInit(): void {
+    this.vehiculosList()
     this.configFormGroup();// llamar el metodo
     const currentUrl = this.activatedRoute.snapshot.url.join('/');
     if (currentUrl.includes('view')) {
@@ -48,7 +60,7 @@ export class ManageComponent implements OnInit {
     this.theFormGroup=this.theFormBuilder.group({
       // primer elemento del vector, valor por defecto
       // lista, serán las reglas
-      municipio_id:[1, [Validators.required, Validators.pattern(/^\d+$/)]],
+      municipio_id:[1],
       vehiculo_id:[null, [Validators.required, Validators.pattern(/^\d+$/)]],
     })
   }
@@ -96,7 +108,7 @@ export class ManageComponent implements OnInit {
     this.operacionService.update(updatedOperacion).subscribe({
       next: (data) => {
         Swal.fire('Éxito', 'Vehículo actualizado exitosamente', 'success');
-        this.router.navigate(['/operacions/list']);  
+        this.router.navigate(['/operaciones/list']);  
       },
       error: (err) => {
         Swal.fire('Error', 'No se pudo actualizar el operación', 'error');

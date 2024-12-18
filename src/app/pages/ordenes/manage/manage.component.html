@@ -23,38 +23,32 @@
                     </div>
                     <div class="row">
                         <div class="col-4">
-                            <label>ID de ruta:</label>
+                            Ruta:
                         </div>
                         <div class="col-8">
-                            <input type="text" class="form-control" [(ngModel)]="orden.ruta_id" formControlName="ruta_id">
-                            <div *ngIf="getTheFormGroup.ruta_id.errors && (getTheFormGroup.ruta_id.dirty || getTheFormGroup.ruta_id.touched || trySend)">
-                                <strong *ngIf="getTheFormGroup.ruta_id.errors.required" class="msnError">Requerido</strong>
-                                <strong *ngIf="getTheFormGroup.ruta_id.errors.pattern" class="msnError">Debe ser un número</strong>
-                            </div>
+                            <select class="form-control" formControlName="ruta_id" [(ngModel)]="orden.ruta_id">
+                                <option *ngFor="let option of rutas" [value]="option.id">Id: {{option.id}} - Fecha de asignación: {{option.fecha_asignacion}} - Origen: {{option.origen}} - Destino: {{option.destino}}</option>
+                            </select>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-4">
-                            <label>ID de dirección:</label>
+                            Dirección:
                         </div>
                         <div class="col-8">
-                            <input type="text" class="form-control" [(ngModel)]="orden.direccion_id" formControlName="direccion_id">
-                            <div *ngIf="getTheFormGroup.direccion_id.errors && (getTheFormGroup.direccion_id.dirty || getTheFormGroup.direccion_id.touched || trySend)">
-                                <strong *ngIf="getTheFormGroup.direccion_id.errors.required" class="msnError">Requerido</strong>
-                                <strong *ngIf="getTheFormGroup.direccion_id.errors.pattern" class="msnError">Debe ser un número</strong>
-                            </div>
+                            <select class="form-control" formControlName="direccion_id" [(ngModel)]="orden.direccion_id">
+                                <option *ngFor="let option of direcciones" [value]="option.id">Id: {{option.id}} - Calle: {{option.calle}} - Carrera: {{option.carrera}}</option>
+                            </select>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-4">
-                            <label>ID de lote:</label>
+                            Lote:
                         </div>
                         <div class="col-8">
-                            <input type="text" class="form-control" [(ngModel)]="orden.lote_id" formControlName="lote_id">
-                            <div *ngIf="getTheFormGroup.lote_id.errors && (getTheFormGroup.lote_id.dirty || getTheFormGroup.lote_id.touched || trySend)">
-                                <strong *ngIf="getTheFormGroup.lote_id.errors.required" class="msnError">Requerido</strong>
-                                <strong *ngIf="getTheFormGroup.lote_id.errors.pattern" class="msnError">Debe ser un número</strong>
-                            </div>
+                            <select class="form-control" formControlName="lote_id" [(ngModel)]="orden.lote_id">
+                                <option *ngFor="let option of lotes" [value]="option.id">Id: {{option.id}} - Peso total: {{option.peso_total}} - Cantidad: {{option.cantidad}} - Estado: {{option.estado}}</option>
+                            </select>
                         </div>
                     </div>
                     <div class="row">

@@ -1,8 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Direccion } from 'src/app/models/direccion';
+import { Lote } from 'src/app/models/lote';
 import { Orden } from 'src/app/models/orden';
+import { Ruta } from 'src/app/models/ruta';
+import { DireccionService } from 'src/app/services/direccion.service';
+import { LoteService } from 'src/app/services/lote.service';
 import { OrdenService } from 'src/app/services/orden.service';
+import { RutaService } from 'src/app/services/ruta.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -16,19 +22,49 @@ export class ManageComponent implements OnInit {
   mode: number;
   theFormGroup: FormGroup;
   trySend: boolean;
+  lotes: Lote[];
+  direcciones: Direccion[];
+  rutas: Ruta[];
 
   constructor(
     private ordenService: OrdenService,
     private router: Router,
     private activatedRoute: ActivatedRoute,
     private theFormBuilder: FormBuilder,
+    private loteService: LoteService,
+    private direccionService: DireccionService,
+    private rutaService: RutaService
   ) { 
-    this.orden = {};
+    this.rutas= [];
+    this.direcciones = [];
+    this.lotes = [];
+    this.orden = {lote_id: null, direccion_id: null, ruta_id: null};
     this.mode = 0;
     this.trySend = false;
   }
 
+  direccionesList() {
+    this.direccionService.list().subscribe(data => {
+      this.direcciones = data;
+    })
+  }
+
+  lotesList() {
+    this.loteService.list().subscribe(data => {
+      this.lotes = data;
+    })
+  }
+
+  rutasList() {
+    this.rutaService.list().subscribe(data => {
+      this.rutas= data;
+    })
+  }
+
   ngOnInit(): void {
+    this.rutasList()
+    this.direccionesList()
+    this.lotesList()
     this.configFormGroup();// llamar el metodo
     const currentUrl = this.activatedRoute.snapshot.url.join('/');
     if (currentUrl.includes('view')) {

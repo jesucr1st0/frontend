@@ -23,26 +23,12 @@
                     </div>
                     <div class="row">
                         <div class="col-4">
-                            <label>ID de municipio:</label>
+                            Vehículo:
                         </div>
                         <div class="col-8">
-                            <input type="text" class="form-control" [(ngModel)]="operacion.municipio_id" formControlName="municipio_id">
-                            <div *ngIf="getTheFormGroup.municipio_id.errors && (getTheFormGroup.municipio_id.dirty || getTheFormGroup.municipio_id.touched || trySend)">
-                                <strong *ngIf="getTheFormGroup.municipio_id.errors.required" class="msnError">Requerido</strong>
-                                <strong *ngIf="getTheFormGroup.municipio_id.errors.pattern" class="msnError">Debe ser un número</strong>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-4">
-                            <label>ID de vehículo:</label>
-                        </div>
-                        <div class="col-8">
-                            <input type="text" class="form-control" [(ngModel)]="operacion.vehiculo_id" formControlName="vehiculo_id">
-                            <div *ngIf="getTheFormGroup.vehiculo_id.errors && (getTheFormGroup.vehiculo_id.dirty || getTheFormGroup.vehiculo_id.touched || trySend)">
-                                <strong *ngIf="getTheFormGroup.vehiculo_id.errors.required" class="msnError">Requerido</strong>
-                                <strong *ngIf="getTheFormGroup.vehiculo_id.errors.pattern" class="msnError">Debe ser un número</strong>
-                            </div>
+                            <select class="form-control" formControlName="vehiculo_id" [(ngModel)]="operacion.vehiculo_id">
+                                <option *ngFor="let option of vehiculos" [value]="option.id">Id: {{option.id}} - Marca: {{option.marca}} - Modelo: {{option.modelo}}</option>
+                            </select>
                         </div>
                     </div>
                     <div class="row">

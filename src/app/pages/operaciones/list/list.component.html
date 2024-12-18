@@ -15,14 +15,12 @@
               <thead class="thead-light">
                 <tr>
                   <th scope="col-1">ID</th>
-                  <th scope="col-3">ID de municipio</th>
                   <th scope="col-4">ID de vehículo</th>
                 </tr>
               </thead>
               <tbody>
                 <tr *ngFor="let actual of operaciones">
                   <td>{{ actual.id }}</td>
-                  <td>{{ actual.municipio_id }}</td>
                   <td>{{ actual.vehiculo_id }}</td>
                   <td>
                     <button type="button" class="btn btn-primary">Ver</button>

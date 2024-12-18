@@ -1,7 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Cliente } from 'src/app/models/cliente';
+import { Lote } from 'src/app/models/lote';
 import { Producto } from 'src/app/models/producto';
+import { ClienteService } from 'src/app/services/cliente.service';
+import { LoteService } from 'src/app/services/lote.service';
 import { ProductoService } from 'src/app/services/producto.service';
 import Swal from 'sweetalert2';
 
@@ -16,19 +20,39 @@ export class ManageComponent implements OnInit {
   mode: number;
   theFormGroup: FormGroup;
   trySend: boolean;
+  lotes: Lote[];
+  clientes: Cliente[]
 
   constructor(
     private productoService: ProductoService,
     private router: Router,
     private activatedRoute: ActivatedRoute,
     private theFormBuilder: FormBuilder,
+    private loteService: LoteService,
+    private clienteService: ClienteService
   ) { 
-    this.producto = {nombre: "", peso: 0, cantidad_disponible: 0, precio: 0};
+    this.lotes = [];
+    this.clientes = []
+    this.producto = {nombre: "", peso: 0, cantidad_disponible: 0, precio: 0, lote_id: null, cliente_id: null};
     this.mode = 0;
     this.trySend = false;
   }
 
+  lotesList() {
+    this.loteService.list().subscribe(data => {
+      this.lotes = data;
+    })
+  }
+
+  clientesList() {
+    this.clienteService.list().subscribe(data => {
+      this.clientes = data;
+    })
+  }
+
   ngOnInit(): void {
+    this.lotesList()
+    this.clientesList()
     this.configFormGroup();// llamar el metodo
     const currentUrl = this.activatedRoute.snapshot.url.join('/');
     if (currentUrl.includes('view')) {

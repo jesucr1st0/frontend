@@ -57,14 +57,12 @@
                     </div>
                     <div class="row">
                         <div class="col-4">
-                            <label>ID de ruta:</label>
+                            Ruta:
                         </div>
                         <div class="col-8">
-                            <input type="text" class="form-control" [(ngModel)]="lote.ruta_id" formControlName="ruta_id">
-                            <div *ngIf="getTheFormGroup.ruta_id.errors && (getTheFormGroup.ruta_id.dirty || getTheFormGroup.ruta_id.touched || trySend)">
-                                <strong *ngIf="getTheFormGroup.ruta_id.errors.required" class="msnError">Requerido</strong>
-                                <strong *ngIf="getTheFormGroup.ruta_id.errors.pattern" class="msnError">Debe ser un número</strong>
-                            </div>
+                            <select class="form-control" formControlName="ruta_id" [(ngModel)]="lote.ruta_id">
+                                <option *ngFor="let option of rutas" [value]="option.id">Id: {{option.id}} - Peso total: {{option.peso_total}} - Cantidad: {{option.cantidad}} - Estado: {{option.estado}}</option>
+                            </select>
                         </div>
                     </div>
                     <div class="row">
@@ -89,7 +87,7 @@
                         </div>
                     </div>
                  </div>
-            </form>
+               </form>
                 
             </div>
         </div>
